@@ -108,7 +108,9 @@
                                 <div class="font-data-mono text-[12px] text-on-surface-variant mt-xs flex items-center gap-sm">
                                     <span>{{ $game['time_class'] }}</span>
                                     <span class="w-1 h-1 rounded-full bg-outline-variant"></span>
-                                    <a href="{{ $game['url'] }}" target="_blank" class="hover:text-primary hover:underline">View on Chess.com</a>
+                                    <a href="{{ route('analysis', ['game' => urlencode($game['url'])]) }}" class="hover:text-primary hover:underline text-primary flex items-center gap-1">
+                                        Analyze Game <span class="material-symbols-outlined text-[14px]">query_stats</span>
+                                    </a>
                                 </div>
                             </div>
                         </div>

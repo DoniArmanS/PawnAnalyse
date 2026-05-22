@@ -22,6 +22,9 @@ class DashboardController extends Controller
         $stats = $this->chessService->getStats($username);
         $recentGames = $this->chessService->getRecentGames($username, 10);
         
+        // Cache recent games so Analysis controller can find the PGN easily
+        \Illuminate\Support\Facades\Cache::put("recent_games_{$username}", collect($recentGames)->keyBy('url')->toArray(), 3600);
+        
         // Extract main Elo (rapid)
         $currentElo = $stats['chess_rapid']['last']['rating'] ?? ($stats['chess_blitz']['last']['rating'] ?? 0);
         

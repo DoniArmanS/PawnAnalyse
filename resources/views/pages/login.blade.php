@@ -36,7 +36,7 @@
                 </div>
                 <h2 class="font-display-lg text-display-lg text-inverse-surface mb-md">Connect your profile</h2>
                 <p class="font-body-base text-body-base text-on-surface-variant max-w-md">
-                    Unlock deep insights from your Chess.com history. Our engine processes your past games to identify opening inaccuracies and early game strategic patterns.
+                    Unlock deep insights from your Lichess and Chess.com history. Our engine processes your past games to identify opening inaccuracies and early game strategic patterns.
                 </p>
                 
                 <!-- Feature Badges -->
@@ -67,11 +67,6 @@
             </div>
             <h2 class="font-headline-md text-headline-md text-inverse-surface">Connect Account</h2>
         </div>
-        
-        <div class="mb-xl">
-            <h3 class="font-headline-md text-body-base text-on-surface mb-sm">Import your Chess.com data</h3>
-            <p class="font-body-sm text-on-surface-variant">Enter your public Chess.com username to fetch your profile, ratings, and game archives automatically.</p>
-        </div>
 
         @if(session('error'))
         <div class="mb-md p-sm bg-error-container/20 border border-error text-error rounded flex items-center gap-sm">
@@ -80,24 +75,68 @@
         </div>
         @endif
         
-        <!-- Standard Login Form -->
-        <form class="flex flex-col gap-md" action="/connect" method="POST">
-            @csrf
-            <div>
-                <label class="block font-label-caps text-label-caps text-on-surface-variant mb-xs" for="username">Chess.com Username</label>
-                <div class="relative">
-                    <span class="absolute inset-y-0 left-0 flex items-center pl-sm">
-                        <span class="material-symbols-outlined text-on-surface-variant text-sm">person</span>
-                    </span>
-                    <input class="w-full bg-surface-dim border border-outline-variant text-on-surface font-body-base rounded focus:ring-2 focus:ring-primary focus:border-primary pl-xl pr-md py-sm transition-all outline-none" id="username" name="username" placeholder="e.g. hikaru" type="text" required value="{{ old('username') }}"/>
+        <!-- Primary Connect Actions -->
+        <div class="flex flex-col gap-md mb-xl" id="platform-buttons">
+            <button onclick="showChessComForm()" type="button" class="w-full flex items-center justify-between px-md py-lg bg-surface-container-high hover:bg-surface-bright border border-outline-variant/50 hover:border-primary/50 rounded-lg transition-all duration-200 group">
+                <div class="flex items-center gap-md">
+                    <div class="w-10 h-10 bg-[#769656] rounded flex items-center justify-center flex-shrink-0">
+                        <span class="material-symbols-outlined text-white">chess</span>
+                    </div>
+                    <div class="text-left">
+                        <span class="block font-headline-md text-body-base font-semibold text-on-surface group-hover:text-primary transition-colors">Chess.com</span>
+                        <span class="block font-body-sm text-body-sm text-on-surface-variant">Import standard & blitz games</span>
+                    </div>
                 </div>
+                <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary group-hover:translate-x-1 transition-all">arrow_forward</span>
+            </button>
+            <button type="button" class="w-full flex items-center justify-between px-md py-lg bg-surface-container-high hover:bg-surface-bright border border-outline-variant/50 hover:border-primary/50 rounded-lg transition-all duration-200 group opacity-50 cursor-not-allowed" title="Coming soon">
+                <div class="flex items-center gap-md">
+                    <div class="w-10 h-10 bg-white rounded flex items-center justify-center flex-shrink-0">
+                        <span class="material-symbols-outlined text-black">sports_esports</span>
+                    </div>
+                    <div class="text-left">
+                        <span class="block font-headline-md text-body-base font-semibold text-on-surface group-hover:text-primary transition-colors">Lichess.org</span>
+                        <span class="block font-body-sm text-body-sm text-on-surface-variant">Import all rated history</span>
+                    </div>
+                </div>
+                <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary group-hover:translate-x-1 transition-all">arrow_forward</span>
+            </button>
+        </div>
+        
+        <div id="chesscom-form-container" style="display: none;">
+            <div class="relative flex py-sm items-center mb-xl">
+                <div class="flex-grow border-t border-outline-variant/50"></div>
+                <span class="flex-shrink-0 mx-md font-label-caps text-label-caps text-on-surface-variant">SYSTEM OVERRIDE / MANUAL ENTRY</span>
+                <div class="flex-grow border-t border-outline-variant/50"></div>
             </div>
             
-            <button class="w-full bg-primary hover:bg-primary-fixed text-on-primary font-headline-md text-body-base font-semibold py-sm px-md rounded mt-md transition-colors flex justify-center items-center gap-sm" type="submit">
-                Initialize Session
-                <span class="material-symbols-outlined text-sm">login</span>
-            </button>
-        </form>
+            <!-- Standard Login Form modified for Username -->
+            <form class="flex flex-col gap-md" action="/connect" method="POST">
+                @csrf
+                <div>
+                    <label class="block font-label-caps text-label-caps text-on-surface-variant mb-xs" for="username">Chess.com Username</label>
+                    <div class="relative">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-sm">
+                            <span class="material-symbols-outlined text-on-surface-variant text-sm">person</span>
+                        </span>
+                        <input class="w-full bg-surface-dim border border-outline-variant text-on-surface font-body-base rounded focus:ring-2 focus:ring-primary focus:border-primary pl-xl pr-md py-sm transition-all outline-none" id="username" name="username" placeholder="e.g. hikaru" type="text" required value="{{ old('username') }}"/>
+                    </div>
+                </div>
+                
+                <div class="flex items-center justify-between mt-sm">
+                    <label class="flex items-center gap-xs cursor-pointer">
+                        <input class="form-checkbox bg-surface-dim border-outline-variant text-primary rounded-sm focus:ring-primary focus:ring-offset-surface-container-low" type="checkbox" checked/>
+                        <span class="font-body-sm text-body-sm text-on-surface-variant">Retain connection</span>
+                    </label>
+                </div>
+                
+                <button class="w-full bg-primary hover:bg-primary-fixed text-on-primary font-headline-md text-body-base font-semibold py-sm px-md rounded mt-md transition-colors flex justify-center items-center gap-sm" type="submit">
+                    Initialize Session
+                    <span class="material-symbols-outlined text-sm">login</span>
+                </button>
+                <button type="button" onclick="hideChessComForm()" class="w-full mt-sm text-on-surface-variant hover:text-on-surface transition-colors font-body-sm text-sm">Cancel</button>
+            </form>
+        </div>
     </div>
 </div>
 
@@ -112,6 +151,21 @@
             input.parentElement.parentElement.classList.remove('opacity-100');
         });
     });
+
+    function showChessComForm() {
+        document.getElementById('platform-buttons').style.display = 'none';
+        document.getElementById('chesscom-form-container').style.display = 'block';
+    }
+
+    function hideChessComForm() {
+        document.getElementById('platform-buttons').style.display = 'flex';
+        document.getElementById('chesscom-form-container').style.display = 'none';
+    }
+    
+    // Show form automatically if there's an error
+    @if(session('error'))
+        showChessComForm();
+    @endif
 </script>
 @endpush
 @endsection

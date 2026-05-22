@@ -8,10 +8,12 @@
 
 ## 2. Current State
 - Set up the Laravel 11 project locally.
-- Configured Tailwind CSS v4 in `resources/css/app.css` using the exact design tokens from the Figma design.
+- Configured Tailwind CSS v4 in `resources/css/app.css` using the exact design tokens and typography sizes from the Figma design.
 - Implemented `ChessComService` which connects to `https://api.chess.com/pub/player/` to fetch profiles, stats, and monthly game archives.
 - Developed the `AuthController` to handle connecting to Chess.com and validating the username.
 - Created `layouts/base.blade.php`, `layouts/app.blade.php`, `pages/login.blade.php`, and `pages/dashboard.blade.php` applying the Figma designs.
+- Re-implemented the right panel of `login.blade.php` to include Chess.com and Lichess.org buttons that toggle the connection form.
+- Implemented `GameAnalysisController` and `pages/analysis.blade.php` to analyze games directly from the Dashboard using `stockfish.js` running in the browser.
 - Implemented a Chart.js instance on the dashboard for Elo rating tracking.
 - Successfully built assets via Vite.
 
@@ -31,6 +33,7 @@
 - Initial `composer create-project` attempt failed slightly due to a script runner issue, but dependencies were successfully recovered and installed using `composer install --no-scripts` and manual `.env` key generation.
 
 ## 6. Next Steps
-- Implement the remaining detailed views: Analytics, Progression, Game Analysis, and Deep Intelligence Analysis.
+- Expand the Stockfish integration in Game Analysis to parse PGN fully, allow step-by-step move navigation, and evaluate all moves.
+- Implement the remaining detailed views: Analytics, Progression, and Deep Intelligence Analysis (Basic routing and view stubs have been implemented).
 - Consider setting up database caching (e.g. saving games to SQLite rather than only Redis/File cache) if API limits become an issue.
 - The project is ready to be committed and pushed to GitHub.

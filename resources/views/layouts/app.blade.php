@@ -30,17 +30,21 @@
             <span class="material-symbols-outlined">dashboard</span>
             Dashboard
         </a>
-        <a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all duration-200 border-l-4 border-transparent" href="#">
+        <a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all duration-200 border-l-4 border-transparent" href="{{ route('analytics') }}">
             <span class="material-symbols-outlined">query_stats</span>
             Analytics
         </a>
-        <a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all duration-200 border-l-4 border-transparent" href="#">
+        <a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all duration-200 border-l-4 border-transparent" href="{{ route('progression') }}">
             <span class="material-symbols-outlined">trending_up</span>
             Progression
         </a>
-        <a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all duration-200 border-l-4 border-transparent" href="#">
+        <a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all duration-200 border-l-4 border-transparent" href="{{ route('analysis') }}">
             <span class="material-symbols-outlined">query_builder</span>
             Analysis
+        </a>
+        <a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all duration-200 border-l-4 border-transparent" href="{{ route('intelligence') }}">
+            <span class="material-symbols-outlined">memory</span>
+            Deep Intelligence
         </a>
     </div>
     
