@@ -3,10 +3,15 @@
 @section('title', 'Game Analysis')
 
 @push('styles')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.css" integrity="sha512-bV/jTzPM//wE8204BMMZ7G2N22Zptj0fG2W8zEdozFzDk2Z1yKjZzPIfM1f1A7aXfRz/D8v2e3rA9I/BvB7vQw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <style>
-    .chessboard-square.dark-square { background-color: #27272A; }
-    .chessboard-square.light-square { background-color: #3f3f46; }
-    .chessboard-square.highlight { outline: 2px solid #adc6ff; outline-offset: -2px; }
+    /* Override chessboard.js default styling for our theme */
+    .chessboard-63f37 {
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    .white-1e1d7 { background-color: #3f3f46; color: #131315; }
+    .black-3c85d { background-color: #27272A; color: #c2c6d6; }
 </style>
 @endpush
 
@@ -34,15 +39,9 @@
                 </div>
             </div>
             
-            <!-- Placeholder for Board -->
-            <div class="w-full max-w-[600px] aspect-square bg-surface-container-highest border border-outline-variant relative flex items-center justify-center" id="chessboard-container">
-                <span class="material-symbols-outlined text-[120px] opacity-10">grid_4x4</span>
-                @if(!$gameData)
-                    <div class="absolute text-center">
-                        <p class="font-headline-md text-on-surface-variant">No Game Selected</p>
-                        <p class="font-body-sm text-on-surface-variant mt-2">Select a game from the dashboard to analyze.</p>
-                    </div>
-                @endif
+            <!-- The Board -->
+            <div class="w-full max-w-[500px] bg-surface-container-highest rounded relative flex items-center justify-center">
+                <div id="board" class="w-full"></div>
             </div>
         </div>
         
@@ -122,28 +121,48 @@
 @endsection
 
 @push('scripts')
+<!-- jQuery and Chessboard.js -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.js" integrity="sha512-xofA/z3yW0S/Z1RfcQG2nE3T7Nylf1x1fG20+HlsrM/P4PqgE/tE7jD/x5aV6Qp901oB1V2/G7w28WqEw1A=" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', async function() {
         const engineIndicator = document.getElementById('engine-indicator');
         const engineText = document.getElementById('engine-text');
         const engineLines = document.getElementById('engine-lines');
         
-        // Basic Stockfish integration
+        // Initialize Chessboard
+        const config = {
+            pieceTheme: 'https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png',
+            position: 'start',
+            draggable: false
+        };
+        const board = Chessboard('board', config);
+        
+        // Stockfish Web Worker CORS Fix
         try {
-            // Using Web Worker for Stockfish
-            const stockfish = new Worker('https://cdnjs.cloudflare.com/ajax/libs/stockfish.js/10.0.2/stockfish.js');
+            // Fetch the stockfish script directly to bypass Worker CORS policy
+            engineText.innerText = 'Downloading Engine...';
+            const response = await fetch('https://cdnjs.cloudflare.com/ajax/libs/stockfish.js/10.0.2/stockfish.js');
+            const code = await response.text();
+            
+            // Create a local blob from the code
+            const blob = new Blob([code], { type: 'application/javascript' });
+            const workerUrl = URL.createObjectURL(blob);
+            
+            const stockfish = new Worker(workerUrl);
             
             stockfish.onmessage = function(event) {
-                const line = event.data;
+                const line = typeof event.data === 'string' ? event.data : event.data.data;
                 
                 if (line === 'uciok') {
                     engineIndicator.classList.remove('bg-outline-variant');
                     engineIndicator.classList.add('bg-secondary', 'animate-pulse');
-                    engineText.innerText = 'Ready';
+                    engineText.innerText = 'Stockfish 10 Online';
                     
                     // Start basic analysis of starting position
                     stockfish.postMessage('position startpos');
-                    stockfish.postMessage('go depth 10');
+                    stockfish.postMessage('go depth 15');
                 }
                 
                 if (line.includes('info depth')) {
@@ -178,7 +197,8 @@
             stockfish.postMessage('uci');
             
         } catch (e) {
-            engineText.innerText = 'Engine Failed';
+            console.error('Stockfish error:', e);
+            engineText.innerText = 'Engine Failed (CORS or Network)';
             engineIndicator.classList.remove('bg-outline-variant');
             engineIndicator.classList.add('bg-error');
         }

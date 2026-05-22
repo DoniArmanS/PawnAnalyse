@@ -30,7 +30,8 @@
 - Compiled Tailwind CSS.
 
 ## 5. Failed Attempts
-- Initial `composer create-project` attempt failed slightly due to a script runner issue, but dependencies were successfully recovered and installed using `composer install --no-scripts` and manual `.env` key generation.
+- Initial `composer create-project` attempt failed slightly due to a script runner issue, but dependencies were successfully recovered.
+- Dashboard alignment issue and Analysis Stockfish CORS error previously occurred but have been fully resolved (added `h-full` stretching and Stockfish Blob bypass).
 
 ## 6. Next Steps
 - Expand the Stockfish integration in Game Analysis to parse PGN fully, allow step-by-step move navigation, and evaluate all moves.

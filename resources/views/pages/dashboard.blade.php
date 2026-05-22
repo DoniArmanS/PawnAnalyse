@@ -6,7 +6,7 @@
 <!-- Hero / Core Metrics Bento Grid -->
 <section class="grid grid-cols-1 md:grid-cols-12 gap-md md:gap-lg">
     <!-- Main Elo Card -->
-    <div class="col-span-1 md:col-span-8 bg-surface-container-low border border-outline-variant rounded-lg p-lg relative overflow-hidden flex flex-col justify-between min-h-[240px]">
+    <div class="col-span-1 md:col-span-8 bg-surface-container-low border border-outline-variant rounded-lg p-lg relative overflow-hidden flex flex-col justify-between min-h-[240px] h-full">
         <!-- Background abstract pattern -->
         <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(circle at 100% 0%, var(--color-primary) 0%, transparent 50%);"></div>
         <div class="relative z-10 flex justify-between items-start">
@@ -29,7 +29,7 @@
     </div>
     
     <!-- Quick Actions Stack -->
-    <div class="col-span-1 md:col-span-4 flex flex-col gap-md">
+    <div class="col-span-1 md:col-span-4 flex flex-col gap-md h-full">
         <!-- Action Card 1 -->
         <button class="flex-1 bg-surface-container-high border border-outline-variant hover:border-primary/50 rounded-lg p-md flex items-center justify-between group transition-all duration-300 relative overflow-hidden text-left">
             <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300"></div>
