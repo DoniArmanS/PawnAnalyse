@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Game Analysis | PawnAnalyse</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error": "#ffb4ab",
+                        "surface-dim": "#131315",
+                        "surface-container-high": "#2a2a2c",
+                        "tertiary-fixed": "#ffdadb",
+                        "surface-container-lowest": "#0e0e10",
+                        "on-primary-container": "#00285d",
+                        "on-secondary-fixed": "#002113",
+                        "on-secondary": "#003824",
+                        "tertiary": "#ffb2b7",
+                        "surface-variant": "#353437",
+                        "inverse-primary": "#005ac2",
+                        "on-primary-fixed": "#001a42",
+                        "on-secondary-container": "#00311f",
+                        "surface-container": "#201f22",
+                        "surface-container-low": "#1c1b1d",
+                        "primary-container": "#4d8eff",
+                        "primary-fixed": "#d8e2ff",
+                        "on-secondary-fixed-variant": "#005236",
+                        "tertiary-container": "#ff516a",
+                        "on-background": "#e5e1e4",
+                        "on-error-container": "#ffdad6",
+                        "inverse-on-surface": "#313032",
+                        "primary": "#adc6ff",
+                        "secondary": "#4edea3",
+                        "on-surface-variant": "#c2c6d6",
+                        "on-tertiary-fixed": "#40000d",
+                        "background": "#131315",
+                        "on-surface": "#e5e1e4",
+                        "surface": "#131315",
+                        "on-tertiary-fixed-variant": "#92002a",
+                        "on-tertiary": "#67001b",
+                        "outline-variant": "#424754",
+                        "on-primary-fixed-variant": "#004395",
+                        "surface-container-highest": "#353437",
+                        "secondary-fixed": "#6ffbbe",
+                        "surface-bright": "#39393b",
+                        "primary-fixed-dim": "#adc6ff",
+                        "on-tertiary-container": "#5b0017",
+                        "tertiary-fixed-dim": "#ffb2b7",
+                        "surface-tint": "#adc6ff",
+                        "secondary-container": "#00a572",
+                        "on-error": "#690005",
+                        "error-container": "#93000a",
+                        "on-primary": "#002e6a",
+                        "outline": "#8c909f",
+                        "secondary-fixed-dim": "#4edea3",
+                        "inverse-surface": "#e5e1e4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "lg": "24px",
+                        "margin": "24px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "base": "4px",
+                        "xs": "4px",
+                        "gutter": "16px",
+                        "xl": "32px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-base": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "data-mono": ["JetBrains Mono"],
+                        "label-caps": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-base": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "data-mono": ["14px", { "lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .material-symbols-outlined.fill { font-variation-settings: 'FILL' 1; }
+        .chessboard-square.dark-square { background-color: #27272A; } /* Zinc-800 equivalent for standard dark square, adjusting for specific theme needs */
+        .chessboard-square.light-square { background-color: #3f3f46; } /* Zinc-700 */
+        .chessboard-square.highlight { outline: 2px solid #adc6ff; outline-offset: -2px; } /* Primary Blue highlight */
+    </style>
+</head>
+<body class="bg-surface-dim text-on-surface font-body-base antialiased h-screen flex overflow-hidden">
+<!-- SideNavBar (Shared Component JSON) -->
+<nav class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 bg-surface-container-low dark:bg-surface-container-low border-r border-outline-variant py-lg gap-md z-50">
+<!-- Header -->
+<div class="px-md flex items-center gap-md mb-md">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-high border border-outline-variant flex-shrink-0">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8OvQ5KNZ97eufMbyoERw02Xt0ZqtM4xF9yVO13355FCFk0Yzp0pC6NE7OXTfGbuspumZCDeh3NZYXgth_HTSaOssA80cgNriqfH8Tj7azLHoYHdEKVQ_ik6v19n8GoLTT7YfFahEf7UT2hFPWcEiebx8OiBMSek-SyKeCI9wXAiWTkhQtgZNAYbIEgiYFG71hXljr1vkArsiny9t3DXVnQtTjMVP9I9wFbpwU26qvdPP0S2PrOdTISu_r7uFntgEkDhccSx7tFB4"/>
+</div>
+<div>
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary leading-tight">Grandmaster</div>
+<div class="font-data-mono text-data-mono text-on-surface-variant text-xs">ELO 2450</div>
+</div>
+</div>
+<!-- CTA -->
+<div class="px-md mb-sm">
+<button class="w-full bg-primary text-on-primary font-label-caps text-label-caps py-sm px-md rounded hover:bg-primary-fixed transition-colors flex items-center justify-center gap-sm">
+<span class="material-symbols-outlined text-sm">add</span>
+                New Analysis
+            </button>
+</div>
+<!-- Main Nav -->
+<div class="flex flex-col gap-xs flex-grow">
+<a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="query_stats">query_stats</span>
+                Analytics
+            </a>
+<a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+                Progression
+            </a>
+<!-- Active State Logic Applied -->
+<a class="bg-primary-container/20 text-primary border-l-4 border-primary px-md py-sm flex items-center gap-md font-label-caps text-label-caps translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="query_builder">query_builder</span>
+                Analysis
+            </a>
+</div>
+<!-- Footer Nav -->
+<div class="flex flex-col gap-xs mt-auto">
+<a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+<a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                Support
+            </a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col md:ml-64 relative min-h-screen">
+<!-- TopNavBar (Shared Component JSON) -->
+<header class="bg-surface-container-lowest dark:bg-surface-container-lowest flex justify-between items-center w-full px-lg py-sm h-16 border-b border-outline-variant z-40 sticky top-0">
+<!-- Mobile Menu Trigger (Hidden on Desktop) -->
+<button class="md:hidden text-on-surface-variant p-sm hover:bg-surface-variant rounded transition-colors duration-200">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<!-- Brand Logo (Centered on mobile, left on desktop) -->
+<div class="font-headline-md text-headline-md font-bold tracking-tight text-primary dark:text-primary md:hidden">PawnAnalyse</div>
+<div class="hidden md:block"></div> <!-- Spacer for flex layout -->
+<!-- Actions Right -->
+<div class="flex items-center gap-sm">
+<!-- Search implicitly on right based on JSON "search_bar": "on_right" -->
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="bg-surface-container-high border-outline-variant border text-body-sm font-body-sm text-on-surface rounded pl-8 pr-3 py-1.5 focus:border-primary focus:ring-1 focus:ring-primary outline-none w-48 transition-all" placeholder="Search games..." type="text"/>
+</div>
+<button class="text-on-surface-variant hover:bg-surface-variant dark:hover:bg-surface-variant transition-colors duration-200 p-sm rounded-full">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-variant dark:hover:bg-surface-variant transition-colors duration-200 p-sm rounded-full">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-variant dark:hover:bg-surface-variant transition-colors duration-200 p-sm rounded-full">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 overflow-y-auto p-md lg:p-lg grid grid-cols-1 lg:grid-cols-12 gap-lg relative">
+<!-- Left Column: Board & Controls (Spans 8 columns on large screens) -->
+<div class="lg:col-span-8 flex flex-col gap-md h-full min-h-[600px]">
+<!-- Player Info Top -->
+<div class="flex items-center justify-between bg-surface-container border border-outline-variant p-sm rounded">
+<div class="flex items-center gap-sm">
+<div class="w-6 h-6 rounded-sm bg-surface-variant flex items-center justify-center font-data-mono text-xs text-on-surface">GM</div>
+<span class="font-body-sm text-body-sm font-semibold">Magnus Carlsen</span>
+<span class="font-data-mono text-data-mono text-xs text-on-surface-variant">(2839)</span>
+</div>
+<div class="font-data-mono text-data-mono bg-surface-container-high px-2 py-1 rounded-sm text-xs border border-outline-variant">0:14</div>
+</div>
+<!-- The Board Area -->
+<div class="flex-1 bg-surface-container border border-outline-variant rounded flex items-center justify-center p-md relative aspect-square lg:aspect-auto">
+<!-- Engine Evaluation Bar (Vertical Left) -->
+<div class="absolute left-md top-md bottom-md w-4 bg-surface-container-high border border-outline-variant rounded-sm overflow-hidden flex flex-col justify-end">
+<div class="bg-primary-container h-[65%] w-full relative transition-all duration-300">
+<!-- Score indicator -->
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 font-data-mono text-[10px] text-on-primary-container bg-surface px-1 rounded shadow-sm border border-outline-variant">+1.4</div>
+</div>
+</div>
+<!-- Placeholder for Board image/SVG - Using a high-contrast tech abstract to fit the HUD vibe -->
+<div class="w-full max-w-[600px] aspect-square bg-surface-container-highest border border-outline-variant relative grid grid-cols-8 grid-rows-8">
+<!-- Example squares - dynamically generated in reality -->
+<div class="chessboard-square light-square"></div>
+<div class="chessboard-square dark-square"></div>
+<div class="chessboard-square light-square"></div>
+<div class="chessboard-square dark-square highlight"></div> <!-- Highlight example -->
+<!-- ... more squares ... -->
+<!-- Central Icon to imply board area -->
+<div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[120px]">grid_4x4</span>
+</div>
+</div>
+</div>
+<!-- Player Info Bottom -->
+<div class="flex items-center justify-between bg-surface-container border border-outline-variant p-sm rounded">
+<div class="flex items-center gap-sm">
+<div class="w-6 h-6 rounded-sm bg-primary-container text-on-primary-container flex items-center justify-center font-data-mono text-xs">IM</div>
+<span class="font-body-sm text-body-sm font-semibold">User (You)</span>
+<span class="font-data-mono text-data-mono text-xs text-on-surface-variant">(2450)</span>
+</div>
+<div class="font-data-mono text-data-mono bg-surface-container-high px-2 py-1 rounded-sm text-xs border border-outline-variant">2:45</div>
+</div>
+<!-- Controls & Critical Moments Timeline -->
+<div class="bg-surface-container border border-outline-variant rounded p-sm flex flex-col gap-sm">
+<!-- Control Buttons -->
+<div class="flex justify-center items-center gap-sm">
+<button class="p-xs rounded bg-surface border border-outline-variant text-on-surface hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">fast_rewind</span>
+</button>
+<button class="p-xs rounded bg-surface border border-outline-variant text-on-surface hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="p-xs rounded bg-primary text-on-primary hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined">play_arrow</span>
+</button>
+<button class="p-xs rounded bg-surface border border-outline-variant text-on-surface hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+<button class="p-xs rounded bg-surface border border-outline-variant text-on-surface hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined">fast_forward</span>
+</button>
+</div>
+<!-- Timeline -->
+<div class="mt-sm">
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-xs flex justify-between">
+<span>CRITICAL MOMENTS</span>
+<span class="font-data-mono text-xs">Move 24/45</span>
+</div>
+<div class="h-8 bg-surface-container-highest rounded border border-outline-variant relative flex items-center px-1 overflow-hidden">
+<!-- Timeline Track -->
+<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEgMEwxIDIwIiBzdHJva2U9IiMzZjNmNDYiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIvPjwvc3ZnPg==')] opacity-20"></div>
+<!-- Timeline Markers -->
+<div class="absolute left-[20%] w-3 h-3 rounded-full bg-error border border-background z-10 cursor-pointer hover:scale-125 transition-transform" title="Blunder: Move 12"></div>
+<div class="absolute left-[45%] w-3 h-3 rounded-full bg-secondary border border-background z-10 cursor-pointer hover:scale-125 transition-transform" title="Best Move: Move 20"></div>
+<!-- Current Position Indicator -->
+<div class="absolute left-[55%] w-1 h-full bg-primary z-20 shadow-[0_0_8px_rgba(173,198,255,0.8)]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Move List & Engine Data (Spans 4 columns) -->
+<div class="lg:col-span-4 flex flex-col gap-md h-full max-h-[calc(100vh-8rem)]">
+<!-- Engine Evaluation Card -->
+<div class="bg-surface-container border border-outline-variant rounded p-md flex flex-col gap-sm shrink-0">
+<div class="flex justify-between items-center border-b border-outline-variant pb-xs">
+<span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-xs">
+<span class="material-symbols-outlined text-[16px]">memory</span> ENGINE (Stockfish 16)
+                        </span>
+<div class="flex gap-xs">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-data-mono text-xs text-on-surface-variant">Depth 24</span>
+</div>
+</div>
+<div class="flex flex-col gap-xs font-data-mono text-sm">
+<!-- Engine Line 1 -->
+<div class="flex justify-between items-center bg-surface-container-high px-2 py-1 rounded">
+<span class="text-primary font-bold">+1.45</span>
+<span class="text-on-surface truncate max-w-[180px]">Nf3 d5 g3 Nf6 Bg2 e6 O-O</span>
+</div>
+<!-- Engine Line 2 -->
+<div class="flex justify-between items-center px-2 py-1">
+<span class="text-on-surface-variant">+1.20</span>
+<span class="text-on-surface-variant truncate max-w-[180px] opacity-70">e4 e5 Nf3 Nc6 Bb5 a6</span>
+</div>
+</div>
+</div>
+<!-- Move List Container -->
+<div class="bg-surface-container border border-outline-variant rounded flex-1 flex flex-col overflow-hidden">
+<div class="p-sm border-b border-outline-variant bg-surface-container-high flex justify-between items-center shrink-0">
+<span class="font-label-caps text-label-caps">NOTATION</span>
+<button class="text-on-surface-variant hover:text-on-surface">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+<!-- Scrollable Move List -->
+<div class="flex-1 overflow-y-auto p-sm flex flex-col font-data-mono text-sm">
+<!-- Striped Rows -->
+<div class="flex gap-2 py-1 px-2 bg-surface-dim hover:bg-surface-variant/50 rounded cursor-pointer transition-colors">
+<span class="w-6 text-on-surface-variant text-right">22.</span>
+<span class="w-16">Qd3</span>
+<span class="w-16">Rad8</span>
+</div>
+<div class="flex gap-2 py-1 px-2 hover:bg-surface-variant/50 rounded cursor-pointer transition-colors">
+<span class="w-6 text-on-surface-variant text-right">23.</span>
+<span class="w-16 flex items-center gap-1">Rfd1 <span class="w-2 h-2 rounded-full bg-secondary" title="Best Move"></span></span>
+<span class="w-16">h6</span>
+</div>
+<!-- Active Move -->
+<div class="flex gap-2 py-1 px-2 bg-primary-container/10 border-l-2 border-primary rounded cursor-pointer transition-colors mt-1 mb-1">
+<span class="w-6 text-on-surface-variant text-right">24.</span>
+<span class="w-16 text-primary font-bold">Ne4</span>
+<span class="w-16 text-error font-bold flex items-center gap-1">Nxe4?? <span class="material-symbols-outlined text-[14px] text-error">warning</span></span>
+</div>
+<!-- Analysis Comment attached to Active Move -->
+<div class="ml-10 mb-2 mr-2 p-2 bg-error-container/20 border border-error/30 rounded text-xs text-on-surface font-body-sm">
+<strong class="text-error">Blunder.</strong> Allows Qxd8+. Best was Re8 maintaining equality (+0.2).
+                        </div>
+<div class="flex gap-2 py-1 px-2 bg-surface-dim hover:bg-surface-variant/50 rounded cursor-pointer transition-colors">
+<span class="w-6 text-on-surface-variant text-right">25.</span>
+<span class="w-16">Qxd8+</span>
+<span class="w-16">Kh7</span>
+</div>
+<div class="flex gap-2 py-1 px-2 hover:bg-surface-variant/50 rounded cursor-pointer transition-colors text-on-surface-variant opacity-50 italic">
+<span class="w-6 text-right">26.</span>
+<span class="w-16">...</span>
+<span class="w-16">...</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Rating Progression - PawnAnalyse</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error": "#ffb4ab",
+                      "surface-dim": "#131315",
+                      "surface-container-high": "#2a2a2c",
+                      "tertiary-fixed": "#ffdadb",
+                      "surface-container-lowest": "#0e0e10",
+                      "on-primary-container": "#00285d",
+                      "on-secondary-fixed": "#002113",
+                      "on-secondary": "#003824",
+                      "tertiary": "#ffb2b7",
+                      "surface-variant": "#353437",
+                      "inverse-primary": "#005ac2",
+                      "on-primary-fixed": "#001a42",
+                      "on-secondary-container": "#00311f",
+                      "surface-container": "#201f22",
+                      "surface-container-low": "#1c1b1d",
+                      "primary-container": "#4d8eff",
+                      "primary-fixed": "#d8e2ff",
+                      "on-secondary-fixed-variant": "#005236",
+                      "tertiary-container": "#ff516a",
+                      "on-background": "#e5e1e4",
+                      "on-error-container": "#ffdad6",
+                      "inverse-on-surface": "#313032",
+                      "primary": "#adc6ff",
+                      "secondary": "#4edea3",
+                      "on-surface-variant": "#c2c6d6",
+                      "on-tertiary-fixed": "#40000d",
+                      "background": "#131315",
+                      "on-surface": "#e5e1e4",
+                      "surface": "#131315",
+                      "on-tertiary-fixed-variant": "#92002a",
+                      "on-tertiary": "#67001b",
+                      "outline-variant": "#424754",
+                      "on-primary-fixed-variant": "#004395",
+                      "surface-container-highest": "#353437",
+                      "secondary-fixed": "#6ffbbe",
+                      "surface-bright": "#39393b",
+                      "primary-fixed-dim": "#adc6ff",
+                      "on-tertiary-container": "#5b0017",
+                      "tertiary-fixed-dim": "#ffb2b7",
+                      "surface-tint": "#adc6ff",
+                      "secondary-container": "#00a572",
+                      "on-error": "#690005",
+                      "error-container": "#93000a",
+                      "on-primary": "#002e6a",
+                      "outline": "#8c909f",
+                      "secondary-fixed-dim": "#4edea3",
+                      "inverse-surface": "#e5e1e4"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "lg": "24px",
+                      "margin": "24px",
+                      "sm": "8px",
+                      "md": "16px",
+                      "base": "4px",
+                      "xs": "4px",
+                      "gutter": "16px",
+                      "xl": "32px"
+              },
+              "fontFamily": {
+                      "body-sm": ["Inter", "sans-serif"],
+                      "headline-md": ["Inter", "sans-serif"],
+                      "body-base": ["Inter", "sans-serif"],
+                      "display-lg": ["Inter", "sans-serif"],
+                      "data-mono": ["JetBrains Mono", "monospace"],
+                      "label-caps": ["Inter", "sans-serif"]
+              },
+              "fontSize": {
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-base": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "data-mono": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        /* Custom scrollbar for deep dark UI */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #131315; }
+        ::-webkit-scrollbar-thumb { background: #353437; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #424754; }
+        
+        .chart-grid { stroke: #2a2a2c; stroke-width: 1; stroke-dasharray: 4 4; }
+        .chart-line { stroke: #adc6ff; stroke-width: 2; fill: none; }
+        .chart-area { fill: url(#chartGradient); opacity: 0.15; }
+        .chart-point { fill: #131315; stroke: #adc6ff; stroke-width: 2; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-base flex h-screen overflow-hidden antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- Shared Component: SideNavBar -->
+<nav class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 border-r border-outline-variant bg-surface-container-low dark:bg-surface-container-low py-lg gap-md z-30">
+<!-- Brand & User Header -->
+<div class="px-md mb-sm flex flex-col gap-sm">
+<div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary mb-md">
+                PawnAnalyse
+            </div>
+<div class="flex items-center gap-md p-sm bg-surface-container rounded-lg border border-outline-variant">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-bold">
+                    GM
+                </div>
+<div>
+<div class="font-body-sm text-body-sm text-on-surface font-bold">Grandmaster</div>
+<div class="font-data-mono text-data-mono text-primary text-xs">ELO 2450</div>
+</div>
+</div>
+<button class="mt-sm w-full bg-primary text-on-primary hover:bg-primary-fixed-dim transition-colors duration-200 py-sm rounded-lg font-body-sm font-bold flex justify-center items-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                New Analysis
+            </button>
+</div>
+<!-- Main Navigation Tabs -->
+<div class="flex flex-col flex-1 gap-xs px-sm mt-md">
+<!-- Inactive Tab -->
+<a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md rounded-lg hover:bg-surface-variant/50 transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">dashboard</span>
+<span class="font-body-sm text-body-sm">Dashboard</span>
+</a>
+<!-- Inactive Tab -->
+<a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md rounded-lg hover:bg-surface-variant/50 transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">query_stats</span>
+<span class="font-body-sm text-body-sm">Analytics</span>
+</a>
+<!-- Active Tab (Progression matches exact intent) -->
+<a class="bg-primary-container/20 text-primary border-l-4 border-primary px-md py-sm flex items-center gap-md rounded-r-lg translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+<span class="font-body-sm text-body-sm font-bold">Progression</span>
+</a>
+<!-- Inactive Tab -->
+<a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md rounded-lg hover:bg-surface-variant/50 transition-all duration-200 group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">query_builder</span>
+<span class="font-body-sm text-body-sm">Analysis</span>
+</a>
+</div>
+<!-- Footer Navigation Tabs -->
+<div class="flex flex-col gap-xs px-sm border-t border-outline-variant pt-md mx-sm mt-auto">
+<a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md rounded-lg hover:bg-surface-variant/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md rounded-lg hover:bg-surface-variant/50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span>
+<span class="font-label-caps text-label-caps">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<main class="flex-1 flex flex-col h-full md:ml-64 relative bg-background">
+<!-- Shared Component: TopNavBar (Offset by SideNav on desktop) -->
+<header class="flex justify-between items-center w-full px-lg py-sm h-16 bg-surface-container-lowest dark:bg-surface-container-lowest border-b border-outline-variant sticky top-0 z-20 flex-shrink-0">
+<!-- Mobile Menu Toggle (Hidden on desktop per SideNav constraints, but good practice for fluid grids) -->
+<button class="md:hidden text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<!-- Context Title -->
+<h1 class="font-headline-md text-headline-md font-bold tracking-tight text-primary dark:text-primary hidden md:block">
+                Performance Trajectory
+            </h1>
+<div class="flex items-center gap-md ml-auto">
+<!-- Trailing Icons -->
+<button class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant p-sm rounded-full active:scale-95 duration-100">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant p-sm rounded-full active:scale-95 duration-100">
+<span class="material-symbols-outlined">history</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors hover:bg-surface-variant p-sm rounded-full active:scale-95 duration-100">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Canvas / Main Scrollable Area -->
+<div class="flex-1 overflow-y-auto p-lg lg:p-xl">
+<!-- Fluid Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter max-w-7xl mx-auto">
+<!-- High-Level Stats (Bento Row) -->
+<div class="col-span-1 md:col-span-4 bg-surface-container border border-outline-variant rounded-xl p-md flex flex-col justify-between relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 opacity-5 group-hover:opacity-10 transition-opacity">
+<span class="material-symbols-outlined text-9xl">monitoring</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-xs">Current ELO</span>
+<div class="flex items-end gap-sm">
+<span class="font-data-mono text-display-lg text-primary leading-none">2450</span>
+<span class="font-data-mono text-body-sm text-secondary bg-secondary/10 px-sm py-xs rounded border border-secondary/20 flex items-center gap-xs mb-1">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> +12
+                        </span>
+</div>
+</div>
+<div class="col-span-1 md:col-span-4 bg-surface-container border border-outline-variant rounded-xl p-md flex flex-col justify-between">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-xs">Peak Rating</span>
+<div class="flex items-end gap-sm">
+<span class="font-data-mono text-display-lg text-on-surface leading-none">2482</span>
+<span class="font-body-sm text-on-surface-variant mb-1">Oct 2023</span>
+</div>
+</div>
+<div class="col-span-1 md:col-span-4 bg-surface-container border border-outline-variant rounded-xl p-md flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-xs">Current Trend (30d)</span>
+<span class="material-symbols-outlined text-secondary">trending_up</span>
+</div>
+<div>
+<div class="font-body-base text-body-base text-on-surface">Consistent Growth</div>
+<div class="font-data-mono text-body-sm text-on-surface-variant mt-xs">Win Rate: <span class="text-primary">62.4%</span></div>
+</div>
+</div>
+<!-- Main Interactive Chart Area -->
+<div class="col-span-1 md:col-span-12 bg-surface-container border border-outline-variant rounded-xl p-md lg:p-lg mt-md relative">
+<div class="flex justify-between items-center mb-xl">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Rating Progression</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-xs">Classical time control over the last 12 months</p>
+</div>
+<!-- Time Filters -->
+<div class="flex bg-surface-dim rounded-lg border border-outline-variant p-xs">
+<button class="px-md py-xs font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors">1M</button>
+<button class="px-md py-xs font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors">3M</button>
+<button class="px-md py-xs font-label-caps text-label-caps bg-surface-variant text-primary rounded shadow-sm">1Y</button>
+<button class="px-md py-xs font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors">ALL</button>
+</div>
+</div>
+<!-- SVG Chart Container (Simulated High-Tech HUD) -->
+<div class="w-full h-[400px] relative">
+<svg class="w-full h-full" preserveaspectratio="none" viewbox="0 0 1000 300">
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#adc6ff" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#adc6ff" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<!-- Grid Lines -->
+<line class="chart-grid" x1="0" x2="1000" y1="50" y2="50"></line>
+<line class="chart-grid" x1="0" x2="1000" y1="150" y2="150"></line>
+<line class="chart-grid" x1="0" x2="1000" y1="250" y2="250"></line>
+<!-- Area Fill -->
+<polygon class="chart-area" points="0,300 0,220 100,240 200,180 300,190 400,120 500,140 600,80 700,90 800,40 900,60 1000,20 1000,300"></polygon>
+<!-- Main Trend Line -->
+<path class="chart-line" d="M0,220 C50,230 80,245 100,240 C150,230 180,185 200,180 C250,170 280,195 300,190 C350,180 380,125 400,120 C450,110 480,145 500,140 C550,130 580,85 600,80 C650,70 680,95 700,90 C750,80 780,45 800,40 C850,30 880,65 900,60 C950,50 980,25 1000,20"></path>
+<!-- Data Points & Interactions (Simulated) -->
+<circle class="chart-point" cx="200" cy="180" r="4"></circle>
+<circle class="chart-point" cx="400" cy="120" r="4"></circle>
+<circle class="chart-point" cx="600" cy="80" r="4"></circle>
+<circle class="chart-point" cx="800" cy="40" r="4"></circle>
+<!-- Peak Indicator -->
+<g transform="translate(980, 5)">
+<circle class="animate-pulse" cx="20" cy="15" fill="#4edea3" r="5"></circle>
+<text fill="#e5e1e4" font-family="JetBrains Mono" font-size="12" text-anchor="end" x="5" y="-5">Peak: 2482</text>
+</g>
+</svg>
+<!-- Y-Axis Labels -->
+<div class="absolute left-0 top-0 h-full flex flex-col justify-between py-[40px] text-on-surface-variant font-data-mono text-[10px] pointer-events-none">
+<span>2500</span>
+<span>2400</span>
+<span>2300</span>
+</div>
+</div>
+</div>
+<!-- Recent Milestones / Event Log -->
+<div class="col-span-1 md:col-span-12 mt-md">
+<h3 class="font-headline-md text-body-base font-bold text-on-surface mb-md">Significant Events Impact</h3>
+<div class="bg-surface-container border border-outline-variant rounded-xl overflow-hidden">
+<!-- Table Header -->
+<div class="grid grid-cols-12 gap-sm p-sm bg-surface-container-high border-b border-outline-variant font-label-caps text-label-caps text-on-surface-variant">
+<div class="col-span-2">Date</div>
+<div class="col-span-5">Tournament / Milestone</div>
+<div class="col-span-3">Performance Rating</div>
+<div class="col-span-2 text-right">ELO Impact</div>
+</div>
+<!-- List Items (Striped) -->
+<div class="grid grid-cols-12 gap-sm p-md items-center border-b border-outline-variant hover:bg-surface-variant/30 transition-colors">
+<div class="col-span-2 font-data-mono text-body-sm text-on-surface-variant">2023-10-15</div>
+<div class="col-span-5 font-body-sm text-body-sm text-on-surface font-medium flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">emoji_events</span>
+                                Reykjavik Open
+                            </div>
+<div class="col-span-3 font-data-mono text-body-sm text-on-surface">TPR 2510</div>
+<div class="col-span-2 text-right font-data-mono text-body-sm text-secondary">+18.4</div>
+</div>
+<div class="grid grid-cols-12 gap-sm p-md items-center border-b border-outline-variant hover:bg-surface-variant/30 transition-colors bg-surface-dim/30">
+<div class="col-span-2 font-data-mono text-body-sm text-on-surface-variant">2023-08-22</div>
+<div class="col-span-5 font-body-sm text-body-sm text-on-surface font-medium flex items-center gap-sm">
+<span class="material-symbols-outlined text-outline text-[18px]">tour</span>
+                                National Championship
+                            </div>
+<div class="col-span-3 font-data-mono text-body-sm text-on-surface">TPR 2420</div>
+<div class="col-span-2 text-right font-data-mono text-body-sm text-error">-5.2</div>
+</div>
+<div class="grid grid-cols-12 gap-sm p-md items-center hover:bg-surface-variant/30 transition-colors">
+<div class="col-span-2 font-data-mono text-body-sm text-on-surface-variant">2023-05-10</div>
+<div class="col-span-5 font-body-sm text-body-sm text-on-surface font-medium flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-[18px]">military_tech</span>
+                                Reached IM Requirement
+                            </div>
+<div class="col-span-3 font-data-mono text-body-sm text-on-surface">TPR 2455</div>
+<div class="col-span-2 text-right font-data-mono text-body-sm text-secondary">+12.0</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

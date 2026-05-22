@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PawnAnalyse - Connect Account</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-variant": "#353437",
+              "on-secondary-fixed": "#002113",
+              "surface-container-lowest": "#0e0e10",
+              "on-tertiary-fixed": "#40000d",
+              "on-primary-fixed-variant": "#004395",
+              "error": "#ffb4ab",
+              "secondary-fixed-dim": "#4edea3",
+              "on-secondary-container": "#00311f",
+              "secondary": "#4edea3",
+              "inverse-surface": "#e5e1e4",
+              "surface-dim": "#131315",
+              "surface-bright": "#39393b",
+              "inverse-on-surface": "#313032",
+              "on-error": "#690005",
+              "on-secondary-fixed-variant": "#005236",
+              "surface-container-low": "#1c1b1d",
+              "primary-fixed": "#d8e2ff",
+              "surface-container-highest": "#353437",
+              "primary": "#adc6ff",
+              "primary-container": "#4d8eff",
+              "error-container": "#93000a",
+              "on-surface": "#e5e1e4",
+              "tertiary-container": "#ff516a",
+              "primary-fixed-dim": "#adc6ff",
+              "tertiary-fixed": "#ffdadb",
+              "inverse-primary": "#005ac2",
+              "surface": "#131315",
+              "outline": "#8c909f",
+              "surface-container-high": "#2a2a2c",
+              "on-primary-container": "#00285d",
+              "secondary-fixed": "#6ffbbe",
+              "on-background": "#e5e1e4",
+              "on-surface-variant": "#c2c6d6",
+              "tertiary": "#ffb2b7",
+              "on-primary-fixed": "#001a42",
+              "on-tertiary-container": "#5b0017",
+              "surface-tint": "#adc6ff",
+              "outline-variant": "#424754",
+              "tertiary-fixed-dim": "#ffb2b7",
+              "on-tertiary-fixed-variant": "#92002a",
+              "secondary-container": "#00a572",
+              "on-tertiary": "#67001b",
+              "on-primary": "#002e6a",
+              "on-error-container": "#ffdad6",
+              "background": "#131315",
+              "surface-container": "#201f22",
+              "on-secondary": "#003824"
+            },
+            borderRadius: {
+              DEFAULT: "0.125rem",
+              lg: "0.25rem",
+              xl: "0.5rem",
+              full: "0.75rem"
+            },
+            spacing: {
+              margin: "24px",
+              base: "4px",
+              xs: "4px",
+              xl: "32px",
+              sm: "8px",
+              lg: "24px",
+              gutter: "16px",
+              md: "16px"
+            },
+            fontFamily: {
+              "display-lg": ["Inter"],
+              "body-base": ["Inter"],
+              "data-mono": ["JetBrains Mono"],
+              "label-caps": ["Inter"],
+              "headline-md": ["Inter"],
+              "body-sm": ["Inter"]
+            },
+            fontSize: {
+              "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+              "body-base": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+              "data-mono": ["14px", { lineHeight: "20px", letterSpacing: "0.02em", fontWeight: "500" }],
+              "label-caps": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "700" }],
+              "headline-md": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }],
+              "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Custom scrollbar for deep dark UI */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0e0e10; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2a2a2c; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #424754; 
+        }
+
+        .hud-glow {
+            box-shadow: 0 0 40px -10px rgba(77, 142, 255, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-surface-container-lowest text-on-surface font-body-base min-h-screen flex items-center justify-center p-md md:p-xl relative overflow-hidden">
+<!-- Atmospheric Background Elements -->
+<div class="fixed inset-0 pointer-events-none z-0 flex items-center justify-center opacity-20">
+<div class="absolute w-[800px] h-[800px] border border-surface-container-highest rounded-full border-dashed animate-[spin_120s_linear_infinite]"></div>
+<div class="absolute w-[600px] h-[600px] border border-outline-variant/30 rounded-full animate-[spin_90s_linear_infinite_reverse]"></div>
+<div class="absolute w-[400px] h-[400px] border border-primary/10 rounded-full border-dashed animate-[spin_60s_linear_infinite]"></div>
+<!-- Subtle Grid -->
+<div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+</div>
+<!-- Main Content Container (Bento Grid Style Split) -->
+<div class="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-lg z-10">
+<!-- Left Panel: Value Proposition / Visual -->
+<div class="hidden md:flex flex-col justify-between bg-surface border border-outline-variant/50 rounded-xl p-xl hud-glow relative overflow-hidden group">
+<!-- Abstract Data Vis Background -->
+<div class="absolute inset-0 z-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1529699211952-734e80c4d42b?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=2000&amp;q=80')] bg-cover bg-center mix-blend-luminosity" data-alt="Abstract visualization of complex data networks and computational power, rendered in deep blacks and high-contrast electric blues. Thin, glowing lines intersect across a dark void, suggesting deep analysis and artificial intelligence running chess engines. The aesthetic is modern, highly technical, and completely abstract, acting as a subtle backdrop texture.">
+</div>
+<!-- Gradient overlay to ensure text readability -->
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface/80 to-transparent z-0"></div>
+<div class="relative z-10 flex flex-col h-full">
+<!-- Branding -->
+<div class="flex items-center gap-sm mb-xl">
+<span class="material-symbols-outlined text-primary fill text-3xl">psychology</span>
+<h1 class="font-headline-md text-headline-md font-bold tracking-tight text-primary">PawnAnalyse</h1>
+</div>
+<div class="mt-auto">
+<div class="inline-flex items-center gap-sm px-sm py-xs bg-primary-container/20 border border-primary/30 rounded-full mb-md">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-data-mono text-data-mono text-primary text-xs">Engine Initialized</span>
+</div>
+<h2 class="font-display-lg text-display-lg text-inverse-surface mb-md">Connect your profile</h2>
+<p class="font-body-base text-body-base text-on-surface-variant max-w-md">
+                        Unlock deep insights from your Lichess and Chess.com history. Our engine processes your past games to identify opening inaccuracies and early game strategic patterns.
+                    </p>
+<!-- Feature Badges -->
+<div class="flex flex-wrap gap-sm mt-lg">
+<div class="flex items-center gap-xs px-md py-sm bg-surface-container border border-surface-container-highest rounded-DEFAULT">
+<span class="material-symbols-outlined text-secondary text-sm">troubleshoot</span>
+<span class="font-data-mono text-data-mono text-xs text-on-surface">Opening Analysis</span>
+</div>
+<div class="flex items-center gap-xs px-md py-sm bg-surface-container border border-surface-container-highest rounded-DEFAULT">
+<span class="material-symbols-outlined text-tertiary text-sm">query_stats</span>
+<span class="font-data-mono text-data-mono text-xs text-on-surface">Elo Forecasting</span>
+</div>
+<div class="flex items-center gap-xs px-md py-sm bg-surface-container border border-surface-container-highest rounded-DEFAULT">
+<span class="material-symbols-outlined text-primary text-sm">memory</span>
+<span class="font-data-mono text-data-mono text-xs text-on-surface">Deep AI Parsing</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Panel: Connection Options -->
+<div class="flex flex-col justify-center bg-surface-container-low border border-outline-variant/30 rounded-xl p-lg md:p-xl shadow-2xl backdrop-blur-md">
+<div class="mb-xl md:hidden">
+<div class="flex items-center gap-sm mb-sm">
+<span class="material-symbols-outlined text-primary fill text-2xl">psychology</span>
+<h1 class="font-headline-md text-headline-md font-bold tracking-tight text-primary">PawnAnalyse</h1>
+</div>
+<h2 class="font-headline-md text-headline-md text-inverse-surface">Connect Account</h2>
+</div>
+<!-- Primary Connect Actions -->
+<div class="flex flex-col gap-md mb-xl">
+<button class="w-full flex items-center justify-between px-md py-lg bg-surface-container-high hover:bg-surface-bright border border-outline-variant/50 hover:border-primary/50 rounded-lg transition-all duration-200 group">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 bg-[#769656] rounded flex items-center justify-center flex-shrink-0">
+<!-- Generic pawn icon as placeholder for Chess.com logo to avoid external image deps -->
+<span class="material-symbols-outlined text-white">chess</span>
+</div>
+<div class="text-left">
+<span class="block font-headline-md text-body-base font-semibold text-on-surface group-hover:text-primary transition-colors">Chess.com</span>
+<span class="block font-body-sm text-body-sm text-on-surface-variant">Import standard &amp; blitz games</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary group-hover:translate-x-1 transition-all">arrow_forward</span>
+</button>
+<button class="w-full flex items-center justify-between px-md py-lg bg-surface-container-high hover:bg-surface-bright border border-outline-variant/50 hover:border-primary/50 rounded-lg transition-all duration-200 group">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 bg-white rounded flex items-center justify-center flex-shrink-0">
+<!-- Generic knight icon as placeholder for Lichess logo -->
+<span class="material-symbols-outlined text-black">sports_esports</span>
+</div>
+<div class="text-left">
+<span class="block font-headline-md text-body-base font-semibold text-on-surface group-hover:text-primary transition-colors">Lichess.org</span>
+<span class="block font-body-sm text-body-sm text-on-surface-variant">Import all rated history</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary group-hover:translate-x-1 transition-all">arrow_forward</span>
+</button>
+</div>
+<div class="relative flex py-sm items-center mb-xl">
+<div class="flex-grow border-t border-outline-variant/50"></div>
+<span class="flex-shrink-0 mx-md font-label-caps text-label-caps text-on-surface-variant">SYSTEM OVERRIDE / MANUAL ENTRY</span>
+<div class="flex-grow border-t border-outline-variant/50"></div>
+</div>
+<!-- Standard Login Form -->
+<form class="flex flex-col gap-md">
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-xs" for="email">Email Designation</label>
+<div class="relative">
+<span class="absolute inset-y-0 left-0 flex items-center pl-sm">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">mail</span>
+</span>
+<input class="w-full bg-surface-dim border border-outline-variant text-on-surface font-body-base rounded focus:ring-2 focus:ring-primary focus:border-primary pl-xl pr-md py-sm transition-all outline-none" id="email" placeholder="analyst@domain.com" type="email"/>
+</div>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-xs" for="password">Access Cipher</label>
+<div class="relative">
+<span class="absolute inset-y-0 left-0 flex items-center pl-sm">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">lock</span>
+</span>
+<input class="w-full bg-surface-dim border border-outline-variant text-on-surface font-body-base rounded focus:ring-2 focus:ring-primary focus:border-primary pl-xl pr-md py-sm transition-all outline-none" id="password" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<div class="flex items-center justify-between mt-sm">
+<label class="flex items-center gap-xs cursor-pointer">
+<input class="form-checkbox bg-surface-dim border-outline-variant text-primary rounded-sm focus:ring-primary focus:ring-offset-surface-container-low" type="checkbox"/>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Retain connection</span>
+</label>
+<a class="font-body-sm text-body-sm text-primary hover:text-primary-fixed transition-colors" href="#">Decrypt password?</a>
+</div>
+<button class="w-full bg-primary hover:bg-primary-fixed text-on-primary font-headline-md text-body-base font-semibold py-sm px-md rounded mt-md transition-colors flex justify-center items-center gap-sm" type="submit">
+                    Initialize Session
+                    <span class="material-symbols-outlined text-sm">login</span>
+</button>
+</form>
+<div class="mt-lg text-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">No existing dossier?</span>
+<a class="font-body-sm text-body-sm text-primary hover:text-primary-fixed font-semibold ml-xs" href="#">Register new profile</a>
+</div>
+</div>
+</div>
+<script>
+        // Simple ambient interaction: inputs glow subtly on focus
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.parentElement.classList.add('opacity-100');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.parentElement.classList.remove('opacity-100');
+            });
+        });
+    </script>
+</body></html>

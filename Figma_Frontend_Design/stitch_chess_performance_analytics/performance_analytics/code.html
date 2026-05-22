@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Analytics - PawnAnalyse</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "error": "#ffb4ab",
+                        "surface-dim": "#131315",
+                        "surface-container-high": "#2a2a2c",
+                        "tertiary-fixed": "#ffdadb",
+                        "surface-container-lowest": "#0e0e10",
+                        "on-primary-container": "#00285d",
+                        "on-secondary-fixed": "#002113",
+                        "on-secondary": "#003824",
+                        "tertiary": "#ffb2b7",
+                        "surface-variant": "#353437",
+                        "inverse-primary": "#005ac2",
+                        "on-primary-fixed": "#001a42",
+                        "on-secondary-container": "#00311f",
+                        "surface-container": "#201f22",
+                        "surface-container-low": "#1c1b1d",
+                        "primary-container": "#4d8eff",
+                        "primary-fixed": "#d8e2ff",
+                        "on-secondary-fixed-variant": "#005236",
+                        "tertiary-container": "#ff516a",
+                        "on-background": "#e5e1e4",
+                        "on-error-container": "#ffdad6",
+                        "inverse-on-surface": "#313032",
+                        "primary": "#adc6ff",
+                        "secondary": "#4edea3",
+                        "on-surface-variant": "#c2c6d6",
+                        "on-tertiary-fixed": "#40000d",
+                        "background": "#131315",
+                        "on-surface": "#e5e1e4",
+                        "surface": "#131315",
+                        "on-tertiary-fixed-variant": "#92002a",
+                        "on-tertiary": "#67001b",
+                        "outline-variant": "#424754",
+                        "on-primary-fixed-variant": "#004395",
+                        "surface-container-highest": "#353437",
+                        "secondary-fixed": "#6ffbbe",
+                        "surface-bright": "#39393b",
+                        "primary-fixed-dim": "#adc6ff",
+                        "on-tertiary-container": "#5b0017",
+                        "tertiary-fixed-dim": "#ffb2b7",
+                        "surface-tint": "#adc6ff",
+                        "secondary-container": "#00a572",
+                        "on-error": "#690005",
+                        "error-container": "#93000a",
+                        "on-primary": "#002e6a",
+                        "outline": "#8c909f",
+                        "secondary-fixed-dim": "#4edea3",
+                        "inverse-surface": "#e5e1e4"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "lg": "24px",
+                        "margin": "24px",
+                        "sm": "8px",
+                        "md": "16px",
+                        "base": "4px",
+                        "xs": "4px",
+                        "gutter": "16px",
+                        "xl": "32px"
+                    },
+                    fontFamily: {
+                        "body-sm": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-base": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "data-mono": ["JetBrains Mono"],
+                        "label-caps": ["Inter"]
+                    },
+                    fontSize: {
+                        "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+                        "headline-md": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }],
+                        "body-base": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "data-mono": ["14px", { lineHeight: "20px", letterSpacing: "0.02em", fontWeight: "500" }],
+                        "label-caps": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom scrollbar for deep dark UI */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #09090B; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272A; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3f3f46; 
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row overflow-x-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar (Mobile Only) -->
+<nav class="md:hidden flex justify-between items-center w-full px-lg py-sm h-16 bg-surface-container-lowest border-b border-outline-variant sticky top-0 z-50">
+<div class="flex items-center gap-sm">
+<span class="font-headline-md text-headline-md font-bold tracking-tight text-primary">PawnAnalyse</span>
+</div>
+<div class="flex gap-md text-primary">
+<button class="hover:bg-surface-variant transition-colors duration-200 p-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="hover:bg-surface-variant transition-colors duration-200 p-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+</button>
+<button class="hover:bg-surface-variant transition-colors duration-200 p-2 rounded-full">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</nav>
+<!-- SideNavBar (Desktop Only) -->
+<aside class="hidden md:flex h-screen w-64 fixed left-0 top-0 border-r border-outline-variant bg-surface-container-low flex-col py-lg gap-md z-40">
+<div class="px-md mb-xl flex items-center gap-md">
+<div class="h-10 w-10 rounded-full bg-surface-variant overflow-hidden border border-outline">
+<img alt="User Profile" class="h-full w-full object-cover" data-alt="A close-up portrait of a thoughtful chess player, looking intense and focused, set against a dark, moody background with subtle blue rim lighting reflecting a high-tech analytical environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwDGyi9GtPFlBllk9-M_xeNgbNI3eOlAywSftF2urBMKpCFPe9cyaTlo_Vshv55g98Zj1QFt2c6XKkrh6JiwM5nqm1-hXpnLWThVkI2qMLnqHHzZVJPcZkdJS98Tb-Ec2aE60ddVDRIRicwozAS6u1D9DL85f4uq1_Gd7iqAfn8vuxThaFRcY2FkYaY8HqiefpIrO6kr80HLd9c5NEpPeHEO5QlhvPnEAsNo-HWfIZlmSsV5vJXZMHiZcRk7ORH_4Tl4CYZVVWvzU"/>
+</div>
+<div>
+<div class="font-headline-md text-headline-md font-bold text-primary text-lg leading-tight">Grandmaster</div>
+<div class="font-data-mono text-data-mono text-on-surface-variant text-xs">ELO 2450</div>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-sm">
+<a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md hover:bg-surface-variant/50 transition-all duration-200 font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<!-- Active Tab: Analytics -->
+<a class="bg-primary-container/20 text-primary border-l-4 border-primary px-md py-sm flex items-center gap-md font-label-caps text-label-caps translate-x-1 transition-transform" href="#">
+<span class="material-symbols-outlined" data-icon="query_stats" data-weight="fill" style="font-variation-settings: 'FILL' 1;">query_stats</span>
+                Analytics
+            </a>
+<a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md hover:bg-surface-variant/50 transition-all duration-200 font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="trending_up">trending_up</span>
+                Progression
+            </a>
+<a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md hover:bg-surface-variant/50 transition-all duration-200 font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="query_builder">query_builder</span>
+                Analysis
+            </a>
+</nav>
+<div class="px-md mt-auto flex flex-col gap-sm">
+<button class="w-full bg-primary text-on-primary py-sm rounded font-label-caps text-label-caps font-bold hover:bg-primary-fixed transition-colors">
+                New Analysis
+            </button>
+<div class="h-px bg-outline-variant my-2 w-full"></div>
+<a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md hover:bg-surface-variant/50 transition-all duration-200 font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+<a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md hover:bg-surface-variant/50 transition-all duration-200 font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                Support
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 p-md md:p-lg lg:p-xl flex flex-col gap-lg min-h-screen">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row justify-between items-start md:items-end gap-md mb-md border-b border-outline-variant pb-md">
+<div>
+<h1 class="font-display-lg text-display-lg text-primary">Performance Analytics</h1>
+<p class="font-body-base text-body-base text-on-surface-variant mt-xs">Deep evaluation of last 100 rated matches.</p>
+</div>
+<div class="flex gap-sm">
+<div class="bg-surface-container border border-outline-variant rounded px-sm py-xs flex items-center gap-xs">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">calendar_today</span>
+<span class="font-data-mono text-data-mono text-xs text-on-surface">Last 30 Days</span>
+</div>
+<button class="bg-surface border border-outline-variant hover:border-primary text-on-surface rounded px-md py-xs font-label-caps text-label-caps transition-colors">
+                    Export Data
+                </button>
+</div>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-md auto-rows-min">
+<!-- Overall Win Rate Doughnut (Span 4) -->
+<section class="lg:col-span-4 bg-surface-container border border-outline-variant rounded p-md flex flex-col relative overflow-hidden group">
+<div class="flex justify-between items-center mb-lg z-10">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant">Overall Outcome</h2>
+<span class="material-symbols-outlined text-outline">pie_chart</span>
+</div>
+<div class="relative flex-1 flex items-center justify-center min-h-[240px] z-10">
+<!-- Placeholder for Doughnut Chart -->
+<div class="w-48 h-48 rounded-full border-[16px] border-surface-dim relative flex items-center justify-center">
+<!-- Simulated Chart Segments via conic-gradient -->
+<div class="absolute inset-0 rounded-full" style="background: conic-gradient(
+                            #adc6ff 0% 54%, 
+                            #ffb4ab 54% 82%, 
+                            #c2c6d6 82% 100%
+                        ); mask-image: radial-gradient(transparent 55%, black 56%); -webkit-mask-image: radial-gradient(transparent 55%, black 56%);"></div>
+<div class="flex flex-col items-center justify-center">
+<span class="font-display-lg text-display-lg text-primary text-3xl">54%</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Win Rate</span>
+</div>
+</div>
+</div>
+<div class="flex justify-center gap-md mt-auto pt-md border-t border-outline-variant z-10">
+<div class="flex items-center gap-xs">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+<span class="font-data-mono text-data-mono text-xs text-on-surface">Win (54)</span>
+</div>
+<div class="flex items-center gap-xs">
+<div class="w-2 h-2 rounded-full bg-error"></div>
+<span class="font-data-mono text-data-mono text-xs text-on-surface">Loss (28)</span>
+</div>
+<div class="flex items-center gap-xs">
+<div class="w-2 h-2 rounded-full bg-on-surface-variant"></div>
+<span class="font-data-mono text-data-mono text-xs text-on-surface">Draw (18)</span>
+</div>
+</div>
+<!-- Ambient glow -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-primary/5 blur-[50px] rounded-full pointer-events-none group-hover:bg-primary/10 transition-colors duration-500"></div>
+</section>
+<!-- Performance by Color Bar Chart (Span 8) -->
+<section class="lg:col-span-8 bg-surface-container border border-outline-variant rounded p-md flex flex-col">
+<div class="flex justify-between items-center mb-xl">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant">Performance by Color</h2>
+<div class="flex gap-sm">
+<span class="px-2 py-1 rounded bg-surface border border-outline-variant font-data-mono text-data-mono text-xs text-on-surface">White: +45 Elo</span>
+<span class="px-2 py-1 rounded bg-surface border border-outline-variant font-data-mono text-data-mono text-xs text-on-surface">Black: -12 Elo</span>
+</div>
+</div>
+<div class="flex-1 flex items-end gap-lg px-md min-h-[240px] relative pb-md">
+<!-- Y-Axis Guides -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none px-md pb-md">
+<div class="w-full h-px bg-outline-variant/30 relative"><span class="absolute -left-6 -top-2 font-data-mono text-[10px] text-outline">100%</span></div>
+<div class="w-full h-px bg-outline-variant/30 relative"><span class="absolute -left-6 -top-2 font-data-mono text-[10px] text-outline">75%</span></div>
+<div class="w-full h-px bg-outline-variant/30 relative"><span class="absolute -left-6 -top-2 font-data-mono text-[10px] text-outline">50%</span></div>
+<div class="w-full h-px bg-outline-variant/30 relative"><span class="absolute -left-6 -top-2 font-data-mono text-[10px] text-outline">25%</span></div>
+<div class="w-full h-px bg-outline-variant relative"><span class="absolute -left-6 -top-2 font-data-mono text-[10px] text-outline">0%</span></div>
+</div>
+<!-- White Stats -->
+<div class="flex-1 flex flex-col justify-end items-center gap-sm z-10 group cursor-crosshair">
+<div class="w-full flex justify-center items-end gap-1 h-[200px]">
+<div class="w-1/3 bg-primary hover:bg-primary-fixed transition-colors h-[62%] rounded-t relative">
+<span class="absolute -top-6 left-1/2 -translate-x-1/2 font-data-mono text-[10px] text-primary opacity-0 group-hover:opacity-100 transition-opacity">62%</span>
+</div>
+<div class="w-1/3 bg-error hover:bg-error-container transition-colors h-[22%] rounded-t"></div>
+<div class="w-1/3 bg-on-surface-variant hover:bg-on-surface transition-colors h-[16%] rounded-t"></div>
+</div>
+<div class="font-label-caps text-label-caps text-on-surface flex items-center gap-xs">
+<div class="w-3 h-3 rounded-full border-2 border-outline-variant bg-surface-container-lowest"></div>
+                            White (50 games)
+                        </div>
+</div>
+<!-- Black Stats -->
+<div class="flex-1 flex flex-col justify-end items-center gap-sm z-10 group cursor-crosshair">
+<div class="w-full flex justify-center items-end gap-1 h-[200px]">
+<div class="w-1/3 bg-primary hover:bg-primary-fixed transition-colors h-[46%] rounded-t relative">
+<span class="absolute -top-6 left-1/2 -translate-x-1/2 font-data-mono text-[10px] text-primary opacity-0 group-hover:opacity-100 transition-opacity">46%</span>
+</div>
+<div class="w-1/3 bg-error hover:bg-error-container transition-colors h-[34%] rounded-t"></div>
+<div class="w-1/3 bg-on-surface-variant hover:bg-on-surface transition-colors h-[20%] rounded-t"></div>
+</div>
+<div class="font-label-caps text-label-caps text-on-surface flex items-center gap-xs">
+<div class="w-3 h-3 rounded-full border-2 border-outline-variant bg-on-surface"></div>
+                            Black (50 games)
+                        </div>
+</div>
+</div>
+</section>
+<!-- Best Openings Table (Span 12) -->
+<section class="lg:col-span-12 bg-surface-container border border-outline-variant rounded p-md">
+<div class="flex justify-between items-center mb-md pb-sm border-b border-outline-variant">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant">Top Openings Repertoire</h2>
+<button class="text-primary hover:text-primary-fixed font-label-caps text-[10px] flex items-center gap-xs">
+                        View All <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="text-outline font-label-caps text-label-caps border-b border-surface-variant">
+<th class="p-2 font-normal">Opening Name</th>
+<th class="p-2 font-normal">Color</th>
+<th class="p-2 font-normal">Games</th>
+<th class="p-2 font-normal">Win %</th>
+<th class="p-2 font-normal">Eval Shift</th>
+</tr>
+</thead>
+<tbody class="font-data-mono text-data-mono text-sm">
+<!-- Row 1 -->
+<tr class="border-b border-surface-variant/50 hover:bg-surface-variant/30 transition-colors group">
+<td class="p-2 flex items-center gap-sm">
+<span class="w-1 h-4 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+<span class="font-body-base text-body-sm text-on-surface">Sicilian Defense: Najdorf Variation</span>
+</td>
+<td class="p-2">
+<div class="w-3 h-3 rounded-full border border-outline-variant bg-on-surface inline-block align-middle" title="Black"></div>
+</td>
+<td class="p-2 text-on-surface-variant">24</td>
+<td class="p-2">
+<div class="flex items-center gap-xs">
+<span class="text-primary">68%</span>
+<div class="w-16 h-1 bg-surface-dim rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 68%"></div>
+</div>
+</div>
+</td>
+<td class="p-2 text-secondary flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> +0.4
+                                </td>
+</tr>
+<!-- Row 2 -->
+<tr class="border-b border-surface-variant/50 hover:bg-surface-variant/30 transition-colors group bg-surface-dim/30">
+<td class="p-2 flex items-center gap-sm">
+<span class="w-1 h-4 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+<span class="font-body-base text-body-sm text-on-surface">Ruy Lopez: Morphy Defense</span>
+</td>
+<td class="p-2">
+<div class="w-3 h-3 rounded-full border border-outline-variant bg-surface-container-lowest inline-block align-middle" title="White"></div>
+</td>
+<td class="p-2 text-on-surface-variant">18</td>
+<td class="p-2">
+<div class="flex items-center gap-xs">
+<span class="text-primary">61%</span>
+<div class="w-16 h-1 bg-surface-dim rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 61%"></div>
+</div>
+</div>
+</td>
+<td class="p-2 text-secondary flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> +0.2
+                                </td>
+</tr>
+<!-- Row 3 -->
+<tr class="border-b border-surface-variant/50 hover:bg-surface-variant/30 transition-colors group">
+<td class="p-2 flex items-center gap-sm">
+<span class="w-1 h-4 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></span>
+<span class="font-body-base text-body-sm text-on-surface">Queen's Gambit Declined</span>
+</td>
+<td class="p-2">
+<div class="w-3 h-3 rounded-full border border-outline-variant bg-surface-container-lowest inline-block align-middle" title="White"></div>
+</td>
+<td class="p-2 text-on-surface-variant">15</td>
+<td class="p-2">
+<div class="flex items-center gap-xs">
+<span class="text-on-surface-variant">45%</span>
+<div class="w-16 h-1 bg-surface-dim rounded-full overflow-hidden">
+<div class="h-full bg-on-surface-variant" style="width: 45%"></div>
+</div>
+</div>
+</td>
+<td class="p-2 text-error flex items-center gap-xs">
+<span class="material-symbols-outlined text-[14px]">arrow_downward</span> -0.1
+                                </td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+</main>
+</body></html>

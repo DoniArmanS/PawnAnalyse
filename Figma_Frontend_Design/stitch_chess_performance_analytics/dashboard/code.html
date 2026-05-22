@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PawnAnalyse - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error": "#ffb4ab",
+                      "surface-dim": "#131315",
+                      "surface-container-high": "#2a2a2c",
+                      "tertiary-fixed": "#ffdadb",
+                      "surface-container-lowest": "#0e0e10",
+                      "on-primary-container": "#00285d",
+                      "on-secondary-fixed": "#002113",
+                      "on-secondary": "#003824",
+                      "tertiary": "#ffb2b7",
+                      "surface-variant": "#353437",
+                      "inverse-primary": "#005ac2",
+                      "on-primary-fixed": "#001a42",
+                      "on-secondary-container": "#00311f",
+                      "surface-container": "#201f22",
+                      "surface-container-low": "#1c1b1d",
+                      "primary-container": "#4d8eff",
+                      "primary-fixed": "#d8e2ff",
+                      "on-secondary-fixed-variant": "#005236",
+                      "tertiary-container": "#ff516a",
+                      "on-background": "#e5e1e4",
+                      "on-error-container": "#ffdad6",
+                      "inverse-on-surface": "#313032",
+                      "primary": "#adc6ff",
+                      "secondary": "#4edea3",
+                      "on-surface-variant": "#c2c6d6",
+                      "on-tertiary-fixed": "#40000d",
+                      "background": "#131315",
+                      "on-surface": "#e5e1e4",
+                      "surface": "#131315",
+                      "on-tertiary-fixed-variant": "#92002a",
+                      "on-tertiary": "#67001b",
+                      "outline-variant": "#424754",
+                      "on-primary-fixed-variant": "#004395",
+                      "surface-container-highest": "#353437",
+                      "secondary-fixed": "#6ffbbe",
+                      "surface-bright": "#39393b",
+                      "primary-fixed-dim": "#adc6ff",
+                      "on-tertiary-container": "#5b0017",
+                      "tertiary-fixed-dim": "#ffb2b7",
+                      "surface-tint": "#adc6ff",
+                      "secondary-container": "#00a572",
+                      "on-error": "#690005",
+                      "error-container": "#93000a",
+                      "on-primary": "#002e6a",
+                      "outline": "#8c909f",
+                      "secondary-fixed-dim": "#4edea3",
+                      "inverse-surface": "#e5e1e4"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "lg": "24px",
+                      "margin": "24px",
+                      "sm": "8px",
+                      "md": "16px",
+                      "base": "4px",
+                      "xs": "4px",
+                      "gutter": "16px",
+                      "xl": "32px"
+              },
+              "fontFamily": {
+                      "body-sm": ["Inter"],
+                      "headline-md": ["Inter"],
+                      "body-base": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "data-mono": ["JetBrains Mono"],
+                      "label-caps": ["Inter"]
+              },
+              "fontSize": {
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-base": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "data-mono": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #131315; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #353437; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #424754; 
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex font-body-base antialiased selection:bg-primary selection:text-on-primary">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant py-lg gap-md z-40">
+<!-- Brand / Header -->
+<div class="px-lg pb-md mb-md border-b border-outline-variant flex flex-col gap-sm">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-[32px]" style="font-variation-settings: 'FILL' 1;">chess</span>
+<span class="font-headline-md text-headline-md font-bold text-primary tracking-tight">PawnAnalyse</span>
+</div>
+</div>
+<!-- User Profile Area -->
+<div class="px-md mb-md">
+<div class="flex items-center gap-md p-sm bg-surface rounded-lg border border-outline-variant">
+<div class="w-10 h-10 rounded-full bg-surface-container-high overflow-hidden border border-outline-variant shrink-0">
+<img alt="User Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCvd--bvddqLDvX546dGnivsiJTGm5rMch-W9u4Vaqm8VqFaikxtQvQcSJ_-KoMX8t3bYsR2xlnfmx3aK5lRfeis5PylTcHXEomdwUJsLBhxWps3TAfie48_C_qd_-DYl0xvdZFSiQNtI9FG0MsQQgG7QmFSxhuQhVo3fuXdQg_mb4XvjNwVpS4Va4I4Pbm-mLPoVbn1w-_DL1rOfBKVNA62As7Wm4Mzfl_uWjO1w4Aj61OqLRKB1VjSoQW5KxXueENI76FsBZ2d4"/>
+</div>
+<div class="flex flex-col overflow-hidden">
+<span class="font-label-caps text-label-caps text-on-surface truncate">Grandmaster</span>
+<span class="font-data-mono text-data-mono text-primary truncate">ELO 2450</span>
+</div>
+</div>
+</div>
+<!-- Main Nav Links -->
+<div class="flex-1 overflow-y-auto px-sm flex flex-col gap-xs">
+<a class="bg-primary-container/20 text-primary border-l-4 border-primary px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all duration-200 translate-x-1" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all duration-200 border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined">query_stats</span>
+                Analytics
+            </a>
+<a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all duration-200 border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined">trending_up</span>
+                Progression
+            </a>
+<a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all duration-200 border-l-4 border-transparent" href="#">
+<span class="material-symbols-outlined">query_builder</span>
+                Analysis
+            </a>
+</div>
+<!-- CTA -->
+<div class="px-md mb-md">
+<button class="w-full bg-primary text-on-primary py-sm px-md rounded font-label-caps text-label-caps flex items-center justify-center gap-sm hover:bg-primary-fixed-dim transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                New Analysis
+            </button>
+</div>
+<!-- Footer Links -->
+<div class="mt-auto px-sm flex flex-col gap-xs pt-md border-t border-outline-variant mx-sm">
+<a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all duration-200 rounded" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+<a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all duration-200 rounded" href="#">
+<span class="material-symbols-outlined">help</span>
+                Support
+            </a>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<main class="flex-1 md:ml-64 flex flex-col min-w-0">
+<!-- TopNavBar (Mobile only for branding, desktop has trailing actions) -->
+<header class="bg-surface-container-lowest flex justify-between items-center w-full px-lg py-sm h-16 border-b border-outline-variant sticky top-0 z-30">
+<!-- Mobile Brand (Hidden on md+) -->
+<div class="flex items-center gap-sm md:hidden">
+<span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: 'FILL' 1;">chess</span>
+<span class="font-headline-md text-headline-md font-bold tracking-tight text-primary">PawnAnalyse</span>
+</div>
+<!-- Desktop Search/Context (Visible md+) -->
+<div class="hidden md:flex items-center text-on-surface-variant font-data-mono text-data-mono opacity-60">
+<span class="material-symbols-outlined mr-sm text-[18px]">terminal</span>
+                &gt; engine_status: optimal
+            </div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-md text-primary">
+<button class="p-sm hover:bg-surface-variant rounded-full transition-colors duration-200 flex items-center justify-center relative active:scale-95">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-[6px] right-[6px] w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="p-sm hover:bg-surface-variant rounded-full transition-colors duration-200 flex items-center justify-center active:scale-95">
+<span class="material-symbols-outlined">history</span>
+</button>
+<button class="p-sm hover:bg-surface-variant rounded-full transition-colors duration-200 flex items-center justify-center md:hidden active:scale-95">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Canvas Area -->
+<div class="p-md md:p-xl flex-1 overflow-y-auto w-full max-w-[1400px] mx-auto flex flex-col gap-xl">
+<!-- Hero / Core Metrics Bento Grid -->
+<section class="grid grid-cols-1 md:grid-cols-12 gap-md md:gap-lg">
+<!-- Main Elo Card -->
+<div class="col-span-1 md:col-span-8 bg-surface-container-low border border-outline-variant rounded-lg p-lg relative overflow-hidden flex flex-col justify-between min-h-[240px]">
+<!-- Background abstract pattern -->
+<div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(circle at 100% 0%, var(--tw-colors-primary) 0%, transparent 50%);"></div>
+<div class="relative z-10 flex justify-between items-start">
+<div>
+<h2 class="font-label-caps text-label-caps text-on-surface-variant mb-sm uppercase tracking-widest">Current Rating</h2>
+<div class="flex items-baseline gap-sm">
+<span class="font-display-lg text-display-lg text-on-surface">2450</span>
+<span class="font-data-mono text-data-mono text-secondary flex items-center">
+<span class="material-symbols-outlined text-[16px]">arrow_upward</span>
+                                    12
+                                </span>
+</div>
+<p class="font-body-base text-body-base text-primary mt-xs font-semibold">Grandmaster Level</p>
+</div>
+<div class="w-12 h-12 rounded bg-surface border border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-primary text-[24px]">military_tech</span>
+</div>
+</div>
+<!-- Mini trend line (simulated with SVG for analytic feel) -->
+<div class="relative z-10 w-full h-24 mt-lg flex items-end">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 100 100">
+<!-- Grid lines -->
+<line class="text-outline-variant opacity-30" stroke="currentColor" stroke-dasharray="2,2" stroke-width="0.5" x1="0" x2="100" y1="25" y2="25"></line>
+<line class="text-outline-variant opacity-30" stroke="currentColor" stroke-dasharray="2,2" stroke-width="0.5" x1="0" x2="100" y1="50" y2="50"></line>
+<line class="text-outline-variant opacity-30" stroke="currentColor" stroke-dasharray="2,2" stroke-width="0.5" x1="0" x2="100" y1="75" y2="75"></line>
+<!-- Area fill -->
+<path d="M0 100 L0 60 L10 50 L20 65 L30 45 L40 55 L50 30 L60 40 L70 20 L80 35 L90 10 L100 0 L100 100 Z" fill="var(--tw-colors-primary)" fill-opacity="0.1"></path>
+<!-- Line -->
+<path d="M0 60 L10 50 L20 65 L30 45 L40 55 L50 30 L60 40 L70 20 L80 35 L90 10 L100 0" fill="none" stroke="var(--tw-colors-primary)" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+<!-- Data points -->
+<circle cx="50" cy="30" fill="var(--tw-colors-surface)" r="3" stroke="var(--tw-colors-primary)" stroke-width="2" vector-effect="non-scaling-stroke"></circle>
+<circle cx="70" cy="20" fill="var(--tw-colors-surface)" r="3" stroke="var(--tw-colors-primary)" stroke-width="2" vector-effect="non-scaling-stroke"></circle>
+<circle cx="100" cy="0" fill="var(--tw-colors-primary)" r="4" vector-effect="non-scaling-stroke">
+<animate attributename="r" dur="2s" repeatcount="indefinite" values="3;6;3"></animate>
+</circle>
+</svg>
+</div>
+</div>
+<!-- Quick Actions Stack -->
+<div class="col-span-1 md:col-span-4 flex flex-col gap-md">
+<!-- Action Card 1 -->
+<button class="flex-1 bg-surface-container-high border border-outline-variant hover:border-primary/50 rounded-lg p-md flex items-center justify-between group transition-all duration-300 relative overflow-hidden text-left">
+<div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300"></div>
+<div class="relative z-10">
+<span class="material-symbols-outlined text-primary mb-sm block text-[28px]" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<h3 class="font-headline-md text-[18px] leading-tight font-semibold text-on-surface">Daily Puzzles</h3>
+<p class="font-data-mono text-data-mono text-on-surface-variant opacity-70 mt-xs">Tactics training</p>
+</div>
+<div class="relative z-10 w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</div>
+</button>
+<!-- Action Card 2 -->
+<button class="flex-1 bg-surface-container-high border border-outline-variant hover:border-primary/50 rounded-lg p-md flex items-center justify-between group transition-all duration-300 relative overflow-hidden text-left">
+<div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300"></div>
+<div class="relative z-10">
+<span class="material-symbols-outlined text-primary mb-sm block text-[28px]" style="font-variation-settings: 'FILL' 1;">troubleshoot</span>
+<h3 class="font-headline-md text-[18px] leading-tight font-semibold text-on-surface">Deep Analysis</h3>
+<p class="font-data-mono text-data-mono text-on-surface-variant opacity-70 mt-xs">Stockfish 16.1</p>
+</div>
+<div class="relative z-10 w-8 h-8 rounded-full border border-outline-variant flex items-center justify-center group-hover:bg-primary group-hover:text-on-primary group-hover:border-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</div>
+</button>
+</div>
+</section>
+<!-- Bottom Section: Recent Games & Performance -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-lg">
+<!-- Recent Games List -->
+<div class="lg:col-span-2 flex flex-col gap-md">
+<div class="flex items-center justify-between pb-xs border-b border-outline-variant">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Recent Games</h3>
+<a class="font-data-mono text-data-mono text-primary hover:underline flex items-center gap-xs" href="#">View All <span class="material-symbols-outlined text-[14px]">arrow_outward</span></a>
+</div>
+<div class="flex flex-col border border-outline-variant rounded-lg overflow-hidden bg-surface-container-lowest">
+<!-- Game Row (Win) -->
+<div class="flex items-center p-sm md:p-md border-b border-outline-variant bg-surface hover:bg-surface-variant/30 transition-colors group">
+<div class="w-1 bg-secondary h-10 mr-sm rounded-full"></div>
+<div class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-sm">
+<div class="flex items-center gap-md">
+<div class="flex flex-col items-center justify-center w-12 h-12 bg-surface-container-high rounded border border-outline-variant">
+<span class="font-label-caps text-label-caps text-on-surface-variant">W</span>
+<span class="font-data-mono text-data-mono text-surface-tint">1-0</span>
+</div>
+<div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">person</span>
+<span class="font-body-base text-body-base font-semibold">Magnus_C</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant opacity-60">(2882)</span>
+</div>
+<div class="font-data-mono text-[12px] text-on-surface-variant mt-xs flex items-center gap-sm">
+<span>Nimzo-Indian Defense</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span>32 moves</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-md ml-lg sm:ml-0">
+<span class="px-2 py-1 rounded bg-secondary/20 border border-secondary text-secondary font-data-mono text-[12px] whitespace-nowrap">+12 Elo</span>
+<button class="text-primary hover:text-primary-fixed p-sm rounded hover:bg-primary/10 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined">analytics</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Game Row (Loss) -->
+<div class="flex items-center p-sm md:p-md border-b border-outline-variant bg-surface-container-lowest hover:bg-surface-variant/30 transition-colors group">
+<div class="w-1 bg-error h-10 mr-sm rounded-full"></div>
+<div class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-sm">
+<div class="flex items-center gap-md">
+<div class="flex flex-col items-center justify-center w-12 h-12 bg-surface-container-high rounded border border-outline-variant">
+<span class="font-label-caps text-label-caps text-on-surface-variant">L</span>
+<span class="font-data-mono text-data-mono text-error">0-1</span>
+</div>
+<div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">person</span>
+<span class="font-body-base text-body-base font-semibold">Hikaru_N</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant opacity-60">(2789)</span>
+</div>
+<div class="font-data-mono text-[12px] text-on-surface-variant mt-xs flex items-center gap-sm">
+<span>Sicilian Najdorf</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span>45 moves</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-md ml-lg sm:ml-0">
+<span class="px-2 py-1 rounded bg-error/20 border border-error text-error font-data-mono text-[12px] whitespace-nowrap">-9 Elo</span>
+<button class="text-primary hover:text-primary-fixed p-sm rounded hover:bg-primary/10 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined">analytics</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Game Row (Draw) -->
+<div class="flex items-center p-sm md:p-md bg-surface hover:bg-surface-variant/30 transition-colors group">
+<div class="w-1 bg-outline-variant h-10 mr-sm rounded-full"></div>
+<div class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-sm">
+<div class="flex items-center gap-md">
+<div class="flex flex-col items-center justify-center w-12 h-12 bg-surface-container-high rounded border border-outline-variant">
+<span class="font-label-caps text-label-caps text-on-surface-variant">D</span>
+<span class="font-data-mono text-data-mono text-outline-variant">½-½</span>
+</div>
+<div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">person</span>
+<span class="font-body-base text-body-base font-semibold">Anish_G</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant opacity-60">(2750)</span>
+</div>
+<div class="font-data-mono text-[12px] text-on-surface-variant mt-xs flex items-center gap-sm">
+<span>Ruy Lopez</span>
+<span class="w-1 h-1 rounded-full bg-outline-variant"></span>
+<span>60 moves</span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-md ml-lg sm:ml-0">
+<span class="px-2 py-1 rounded bg-surface-variant border border-outline-variant text-on-surface-variant font-data-mono text-[12px] whitespace-nowrap">+1 Elo</span>
+<button class="text-primary hover:text-primary-fixed p-sm rounded hover:bg-primary/10 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined">analytics</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Performance Breakdown -->
+<div class="lg:col-span-1 flex flex-col gap-md">
+<div class="flex items-center justify-between pb-xs border-b border-outline-variant">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Opening Stats</h3>
+</div>
+<div class="bg-surface-container-low border border-outline-variant rounded-lg p-md flex flex-col gap-md">
+<!-- Stat Item -->
+<div class="flex flex-col gap-xs">
+<div class="flex justify-between items-end font-data-mono text-[12px]">
+<span class="text-on-surface">Sicilian Defense</span>
+<span class="text-primary">68% Win</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden flex">
+<div class="h-full bg-secondary" style="width: 68%;"></div>
+<div class="h-full bg-outline-variant" style="width: 20%;"></div>
+<div class="h-full bg-error" style="width: 12%;"></div>
+</div>
+</div>
+<!-- Stat Item -->
+<div class="flex flex-col gap-xs">
+<div class="flex justify-between items-end font-data-mono text-[12px]">
+<span class="text-on-surface">Queen's Gambit</span>
+<span class="text-primary">55% Win</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden flex">
+<div class="h-full bg-secondary" style="width: 55%;"></div>
+<div class="h-full bg-outline-variant" style="width: 30%;"></div>
+<div class="h-full bg-error" style="width: 15%;"></div>
+</div>
+</div>
+<!-- Stat Item -->
+<div class="flex flex-col gap-xs">
+<div class="flex justify-between items-end font-data-mono text-[12px]">
+<span class="text-on-surface">Caro-Kann</span>
+<span class="text-primary">42% Win</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden flex">
+<div class="h-full bg-secondary" style="width: 42%;"></div>
+<div class="h-full bg-outline-variant" style="width: 25%;"></div>
+<div class="h-full bg-error" style="width: 33%;"></div>
+</div>
+</div>
+</div>
+<!-- HUD Element -->
+<div class="mt-auto bg-surface-container-lowest border border-outline-variant rounded-lg p-md relative overflow-hidden group">
+<div class="absolute -right-4 -bottom-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[120px] text-primary">memory</span>
+</div>
+<h4 class="font-label-caps text-label-caps text-on-surface-variant mb-sm">Engine Status</h4>
+<div class="flex items-center gap-sm font-data-mono text-data-mono text-secondary">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+                            Stockfish 16.1 Online
+                        </div>
+<div class="mt-sm font-data-mono text-[10px] text-on-surface-variant opacity-60">
+                            NPS: 2,450,000 | Depth: 24
+                        </div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</body></html>
