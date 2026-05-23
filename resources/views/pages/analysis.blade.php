@@ -30,7 +30,7 @@
         </div>
         
         <!-- The Board Area -->
-        <div class="flex-1 bg-surface-container border border-outline-variant rounded flex items-center justify-center p-md relative aspect-square lg:aspect-auto">
+        <div class="flex-1 bg-surface-container border border-outline-variant rounded flex items-center justify-center p-md relative" style="min-height: 400px;">
             <!-- Engine Evaluation Bar (Vertical Left) -->
             <div class="absolute left-md top-md bottom-md w-4 bg-surface-container-high border border-outline-variant rounded-sm overflow-hidden flex flex-col justify-end">
                 <div id="eval-bar-fill" class="bg-primary-container h-[50%] w-full relative transition-all duration-300">
@@ -40,8 +40,8 @@
             </div>
             
             <!-- The Board -->
-            <div class="w-full max-w-[500px] bg-surface-container-highest rounded relative flex items-center justify-center">
-                <div id="board" class="w-full"></div>
+            <div id="board-wrap" class="w-full" style="max-width: 480px; aspect-ratio: 1/1;">
+                <div id="board" style="width: 100%;"></div>
             </div>
         </div>
         
@@ -124,6 +124,8 @@
 <!-- jQuery and Chessboard.js -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.js" integrity="sha512-xofA/z3yW0S/Z1RfcQG2nE3T7Nylf1x1fG20+HlsrM/P4PqgE/tE7jD/x5aV6Qp901oB1V2/G7w28WqEw1A=" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- Chess.js for logic -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', async function() {
@@ -138,6 +140,28 @@
             draggable: false
         };
         const board = Chessboard('board', config);
+        
+        // chessboard.js needs explicit pixel width — resize after DOM is laid out
+        setTimeout(() => board.resize(), 100);
+        
+        // Initialize chess.js logic
+        const game = new Chess();
+        const pgnData = `{!! isset($gameData['pgn']) ? str_replace(["\r", "\n"], ["\\r", "\\n"], addslashes($gameData['pgn'])) : '' !!}`;
+        
+        let moveHistory = [];
+        let currentMoveIndex = -1;
+        
+        if (pgnData) {
+            try {
+                game.load_pgn(pgnData);
+                moveHistory = game.history({ verbose: true });
+                // Reset to start for analysis replay
+                game.reset();
+                board.position(game.fen());
+            } catch(e) {
+                console.error("Error parsing PGN with chess.js", e);
+            }
+        }
         
         // Stockfish Web Worker CORS Fix
         try {

@@ -11,9 +11,29 @@
         <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(circle at 100% 0%, var(--color-primary) 0%, transparent 50%);"></div>
         <div class="relative z-10 flex justify-between items-start">
             <div>
-                <h2 class="font-label-caps text-label-caps text-on-surface-variant mb-sm uppercase tracking-widest">Current Rating (Rapid)</h2>
+                <div class="flex items-center gap-sm mb-sm">
+                    <h2 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Current Rating</h2>
+                    <!-- Game Type Dropdown -->
+                    <div class="relative">
+                        <button id="gameTypeBtn" onclick="toggleDropdown()" class="flex items-center gap-xs font-label-caps text-label-caps text-primary border border-primary/40 bg-primary/10 hover:bg-primary/20 rounded px-sm py-[2px] transition-colors">
+                            <span id="gameTypeLabel">Rapid</span>
+                            <span class="material-symbols-outlined text-[14px]">expand_more</span>
+                        </button>
+                        <div id="gameTypeDropdown" class="hidden absolute top-full left-0 mt-xs z-20 bg-surface-container-high border border-outline-variant rounded shadow-xl min-w-[100px] overflow-hidden">
+                            <button onclick="switchType('rapid', 'Rapid')" class="w-full text-left px-md py-sm font-label-caps text-label-caps text-on-surface hover:bg-primary/20 hover:text-primary transition-colors flex items-center gap-xs">
+                                <span class="material-symbols-outlined text-[14px]">speed</span> Rapid
+                            </button>
+                            <button onclick="switchType('blitz', 'Blitz')" class="w-full text-left px-md py-sm font-label-caps text-label-caps text-on-surface hover:bg-primary/20 hover:text-primary transition-colors flex items-center gap-xs">
+                                <span class="material-symbols-outlined text-[14px]">bolt</span> Blitz
+                            </button>
+                            <button onclick="switchType('bullet', 'Bullet')" class="w-full text-left px-md py-sm font-label-caps text-label-caps text-on-surface hover:bg-primary/20 hover:text-primary transition-colors flex items-center gap-xs">
+                                <span class="material-symbols-outlined text-[14px]">rocket_launch</span> Bullet
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 <div class="flex items-baseline gap-sm">
-                    <span class="font-display-lg text-display-lg text-on-surface">{{ $currentElo ?? 'N/A' }}</span>
+                    <span id="eloDisplay" class="font-display-lg text-display-lg text-on-surface">{{ $currentElo ?? 'N/A' }}</span>
                 </div>
                 <p class="font-body-base text-body-base text-primary mt-xs font-semibold">{{ $profile['title'] ?? 'Player' }}</p>
             </div>
@@ -149,29 +169,72 @@
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    // Rating data per game type from backend
+    const ratingData = {
+        rapid:  {{ $stats['chess_rapid']['last']['rating']  ?? 0 }},
+        blitz:  {{ $stats['chess_blitz']['last']['rating']  ?? 0 }},
+        bullet: {{ $stats['chess_bullet']['last']['rating'] ?? 0 }},
+    };
+
+    let eloChart;
+    let currentType = 'rapid';
+
+    function buildChartData(elo) {
+        if (!elo || elo === 0) elo = null;
+        return elo
+            ? [elo - 50, elo - 30, elo - 10, elo + 15, elo - 5, elo]
+            : [0, 0, 0, 0, 0, 0];
+    }
+
+    function toggleDropdown() {
+        document.getElementById('gameTypeDropdown').classList.toggle('hidden');
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        const btn = document.getElementById('gameTypeBtn');
+        const dd  = document.getElementById('gameTypeDropdown');
+        if (!btn.contains(e.target) && !dd.contains(e.target)) {
+            dd.classList.add('hidden');
+        }
+    });
+
+    function switchType(type, label) {
+        currentType = type;
+        const elo = ratingData[type];
+        document.getElementById('gameTypeLabel').textContent = label;
+        document.getElementById('eloDisplay').textContent = elo > 0 ? elo : 'N/A';
+        document.getElementById('gameTypeDropdown').classList.add('hidden');
+
+        // Update chart
+        const chartData = buildChartData(elo);
+        eloChart.data.datasets[0].data = chartData;
+        eloChart.options.scales.y.min = elo > 0 ? elo - 100 : 0;
+        eloChart.options.scales.y.max = elo > 0 ? elo + 50  : 10;
+        eloChart.update();
+    }
+
     document.addEventListener('DOMContentLoaded', function() {
         const ctx = document.getElementById('eloChart').getContext('2d');
-        
-        // Mock data for the chart, you can inject real history data from backend here later
-        const data = {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-            datasets: [{
-                label: 'Elo Rating',
-                data: [{{ $currentElo - 50 }}, {{ $currentElo - 30 }}, {{ $currentElo - 10 }}, {{ $currentElo + 15 }}, {{ $currentElo - 5 }}, {{ $currentElo }}],
-                borderColor: '#adc6ff', // primary color
-                backgroundColor: 'rgba(173, 198, 255, 0.1)',
-                borderWidth: 2,
-                pointBackgroundColor: '#131315',
-                pointBorderColor: '#adc6ff',
-                pointRadius: 3,
-                fill: true,
-                tension: 0.4
-            }]
-        };
+        const initElo = ratingData['rapid'];
 
         const config = {
             type: 'line',
-            data: data,
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Elo Rating',
+                    data: buildChartData(initElo),
+                    borderColor: '#adc6ff',
+                    backgroundColor: 'rgba(173, 198, 255, 0.1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#131315',
+                    pointBorderColor: '#adc6ff',
+                    pointRadius: 3,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
@@ -186,22 +249,18 @@
                     }
                 },
                 scales: {
-                    x: {
-                        display: false
-                    },
+                    x: { display: false },
                     y: {
                         display: false,
-                        min: {{ $currentElo - 100 }},
-                        max: {{ $currentElo + 50 }}
+                        min: initElo > 0 ? initElo - 100 : 0,
+                        max: initElo > 0 ? initElo + 50  : 10
                     }
                 },
-                layout: {
-                    padding: 0
-                }
+                layout: { padding: 0 }
             }
         };
 
-        new Chart(ctx, config);
+        eloChart = new Chart(ctx, config);
     });
 </script>
 @endpush

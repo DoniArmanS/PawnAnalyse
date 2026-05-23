@@ -15,9 +15,9 @@
 </div>
 
 <!-- Main Content Container (Bento Grid Style Split) -->
-<div class="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-lg z-10">
+<div class="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-lg z-10 relative">
     <!-- Left Panel: Value Proposition / Visual -->
-    <div class="hidden md:flex flex-col justify-between bg-surface border border-outline-variant/50 rounded-xl p-xl hud-glow relative overflow-hidden group">
+    <div class="hidden md:flex flex-col justify-between bg-surface border border-outline-variant/50 rounded-xl p-xl hud-glow relative overflow-hidden group min-w-0">
         <!-- Abstract Data Vis Background -->
         <div class="absolute inset-0 z-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1529699211952-734e80c4d42b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center mix-blend-luminosity"></div>
         <!-- Gradient overlay -->
@@ -35,7 +35,7 @@
                     <span class="font-data-mono text-data-mono text-primary text-xs">Engine Initialized</span>
                 </div>
                 <h2 class="font-display-lg text-display-lg text-inverse-surface mb-md">Connect your profile</h2>
-                <p class="font-body-base text-body-base text-on-surface-variant max-w-md">
+                <p class="font-body-base text-body-base text-on-surface-variant" style="max-width:none; white-space: normal;">
                     Unlock deep insights from your Lichess and Chess.com history. Our engine processes your past games to identify opening inaccuracies and early game strategic patterns.
                 </p>
                 
