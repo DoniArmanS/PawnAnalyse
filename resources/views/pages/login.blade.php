@@ -17,11 +17,11 @@
 <!-- Main Content Container (Bento Grid Style Split) -->
 <div class="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-lg z-10 relative">
     <!-- Left Panel: Value Proposition / Visual -->
-    <div class="hidden md:flex flex-col justify-between bg-surface border border-outline-variant/50 rounded-xl p-xl hud-glow relative overflow-hidden group min-w-0">
+    <div class="hidden md:flex flex-col justify-between glass-card rounded-xl p-xl hud-glow relative overflow-hidden group min-w-0">
         <!-- Abstract Data Vis Background -->
-        <div class="absolute inset-0 z-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1529699211952-734e80c4d42b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center mix-blend-luminosity"></div>
+        <div class="absolute inset-0 z-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1529699211952-734e80c4d42b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')] bg-cover bg-center mix-blend-overlay"></div>
         <!-- Gradient overlay -->
-        <div class="absolute inset-0 bg-gradient-to-t from-surface-container-lowest via-surface/80 to-transparent z-0"></div>
+        <div class="absolute inset-0 bg-gradient-to-tr from-surface-container-lowest via-surface/80 to-primary/10 z-0"></div>
         <div class="relative z-10 flex flex-col h-full">
             <!-- Branding -->
             <div class="flex items-center gap-sm mb-xl">
@@ -59,7 +59,7 @@
     </div>
     
     <!-- Right Panel: Connection Options -->
-    <div class="flex flex-col justify-center bg-surface-container-low border border-outline-variant/30 rounded-xl p-lg md:p-xl shadow-2xl backdrop-blur-md">
+    <div class="flex flex-col justify-center glass-card rounded-xl p-lg md:p-xl">
         <div class="mb-xl md:hidden">
             <div class="flex items-center gap-sm mb-sm">
                 <span class="material-symbols-outlined text-primary fill text-2xl">psychology</span>
@@ -77,9 +77,9 @@
         
         <!-- Primary Connect Actions -->
         <div class="flex flex-col gap-md mb-xl" id="platform-buttons">
-            <button onclick="showChessComForm()" type="button" class="w-full flex items-center justify-between px-md py-lg bg-surface-container-high hover:bg-surface-bright border border-outline-variant/50 hover:border-primary/50 rounded-lg transition-all duration-200 group">
+            <button onclick="showChessComForm()" type="button" class="w-full flex items-center justify-between px-md py-lg bg-surface-container-high/50 hover:bg-surface-bright border border-outline-variant/50 hover:border-primary/50 rounded-lg transition-all duration-300 group shadow-lg hover:shadow-primary/10 hover:-translate-y-1">
                 <div class="flex items-center gap-md">
-                    <div class="w-10 h-10 bg-[#769656] rounded flex items-center justify-center flex-shrink-0">
+                    <div class="w-10 h-10 bg-[#769656] rounded flex items-center justify-center flex-shrink-0 shadow-inner">
                         <span class="material-symbols-outlined text-white">chess</span>
                     </div>
                     <div class="text-left">
@@ -89,17 +89,17 @@
                 </div>
                 <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary group-hover:translate-x-1 transition-all">arrow_forward</span>
             </button>
-            <button type="button" class="w-full flex items-center justify-between px-md py-lg bg-surface-container-high hover:bg-surface-bright border border-outline-variant/50 hover:border-primary/50 rounded-lg transition-all duration-200 group opacity-50 cursor-not-allowed" title="Coming soon">
+            <button type="button" class="w-full flex items-center justify-between px-md py-lg bg-surface-container-high/50 border border-outline-variant/50 rounded-lg transition-all duration-300 group opacity-50 cursor-not-allowed" title="Coming soon">
                 <div class="flex items-center gap-md">
-                    <div class="w-10 h-10 bg-white rounded flex items-center justify-center flex-shrink-0">
+                    <div class="w-10 h-10 bg-white rounded flex items-center justify-center flex-shrink-0 shadow-inner">
                         <span class="material-symbols-outlined text-black">sports_esports</span>
                     </div>
                     <div class="text-left">
-                        <span class="block font-headline-md text-body-base font-semibold text-on-surface group-hover:text-primary transition-colors">Lichess.org</span>
+                        <span class="block font-headline-md text-body-base font-semibold text-on-surface">Lichess.org</span>
                         <span class="block font-body-sm text-body-sm text-on-surface-variant">Import all rated history</span>
                     </div>
                 </div>
-                <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary group-hover:translate-x-1 transition-all">arrow_forward</span>
+                <span class="material-symbols-outlined text-on-surface-variant">arrow_forward</span>
             </button>
         </div>
         
@@ -130,11 +130,11 @@
                     </label>
                 </div>
                 
-                <button class="w-full bg-primary hover:bg-primary-fixed text-on-primary font-headline-md text-body-base font-semibold py-sm px-md rounded mt-md transition-colors flex justify-center items-center gap-sm" type="submit">
+                <button class="w-full bg-primary hover:bg-primary-fixed text-on-primary font-headline-md text-body-base font-semibold py-sm px-md rounded mt-md transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 flex justify-center items-center gap-sm" type="submit">
                     Initialize Session
                     <span class="material-symbols-outlined text-sm">login</span>
                 </button>
-                <button type="button" onclick="hideChessComForm()" class="w-full mt-sm text-on-surface-variant hover:text-on-surface transition-colors font-body-sm text-sm">Cancel</button>
+                <button type="button" onclick="hideChessComForm()" class="w-full mt-sm text-on-surface-variant hover:text-on-surface transition-all duration-300 font-body-sm text-sm">Cancel</button>
             </form>
         </div>
     </div>

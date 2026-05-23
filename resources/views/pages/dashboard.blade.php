@@ -6,7 +6,7 @@
 <!-- Hero / Core Metrics Bento Grid -->
 <section class="grid grid-cols-1 md:grid-cols-12 gap-md md:gap-lg">
     <!-- Main Elo Card -->
-    <div class="col-span-1 md:col-span-8 bg-surface-container-low border border-outline-variant rounded-lg p-lg relative overflow-hidden flex flex-col justify-between min-h-[240px] h-full">
+    <div class="col-span-1 md:col-span-8 glass-card rounded-lg p-lg relative overflow-hidden flex flex-col justify-between min-h-[240px] h-full">
         <!-- Background abstract pattern -->
         <div class="absolute inset-0 opacity-5 pointer-events-none" style="background-image: radial-gradient(circle at 100% 0%, var(--color-primary) 0%, transparent 50%);"></div>
         <div class="relative z-10 flex justify-between items-start">
@@ -15,11 +15,11 @@
                     <h2 class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">Current Rating</h2>
                     <!-- Game Type Dropdown -->
                     <div class="relative">
-                        <button id="gameTypeBtn" onclick="toggleDropdown()" class="flex items-center gap-xs font-label-caps text-label-caps text-primary border border-primary/40 bg-primary/10 hover:bg-primary/20 rounded px-sm py-[2px] transition-colors">
+                        <button id="gameTypeBtn" onclick="toggleDropdown()" class="flex items-center gap-xs font-label-caps text-label-caps text-primary border border-primary/40 bg-primary/10 hover:bg-primary/20 rounded px-sm py-[2px] transition-all duration-300 hover:shadow-[0_0_15px_rgba(129,140,248,0.2)]">
                             <span id="gameTypeLabel">Rapid</span>
                             <span class="material-symbols-outlined text-[14px]">expand_more</span>
                         </button>
-                        <div id="gameTypeDropdown" class="hidden absolute top-full left-0 mt-xs z-20 bg-surface-container-high border border-outline-variant rounded shadow-xl min-w-[100px] overflow-hidden">
+                        <div id="gameTypeDropdown" class="hidden absolute top-full left-0 mt-xs z-20 glass-card rounded shadow-xl min-w-[100px] overflow-hidden border border-outline-variant/50">
                             <button onclick="switchType('rapid', 'Rapid')" class="w-full text-left px-md py-sm font-label-caps text-label-caps text-on-surface hover:bg-primary/20 hover:text-primary transition-colors flex items-center gap-xs">
                                 <span class="material-symbols-outlined text-[14px]">speed</span> Rapid
                             </button>
@@ -51,7 +51,7 @@
     <!-- Quick Actions Stack -->
     <div class="col-span-1 md:col-span-4 flex flex-col gap-md h-full">
         <!-- Action Card 1 -->
-        <button class="flex-1 bg-surface-container-high border border-outline-variant hover:border-primary/50 rounded-lg p-md flex items-center justify-between group transition-all duration-300 relative overflow-hidden text-left">
+        <button class="flex-1 glass-card border-transparent hover:border-primary/50 rounded-lg p-md flex items-center justify-between group transition-all duration-300 hover:-translate-y-1 relative overflow-hidden text-left">
             <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300"></div>
             <div class="relative z-10">
                 <span class="material-symbols-outlined text-primary mb-sm block text-[28px]" style="font-variation-settings: 'FILL' 1;">psychology</span>
@@ -64,7 +64,7 @@
         </button>
         
         <!-- Action Card 2 -->
-        <button class="flex-1 bg-surface-container-high border border-outline-variant hover:border-primary/50 rounded-lg p-md flex items-center justify-between group transition-all duration-300 relative overflow-hidden text-left">
+        <button class="flex-1 glass-card border-transparent hover:border-primary/50 rounded-lg p-md flex items-center justify-between group transition-all duration-300 hover:-translate-y-1 relative overflow-hidden text-left">
             <div class="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-300"></div>
             <div class="relative z-10">
                 <span class="material-symbols-outlined text-primary mb-sm block text-[28px]" style="font-variation-settings: 'FILL' 1;">troubleshoot</span>
@@ -87,7 +87,7 @@
             <a class="font-data-mono text-data-mono text-primary hover:underline flex items-center gap-xs" href="#">View All <span class="material-symbols-outlined text-[14px]">arrow_outward</span></a>
         </div>
         
-        <div class="flex flex-col border border-outline-variant rounded-lg overflow-hidden bg-surface-container-lowest">
+        <div class="flex flex-col glass-card border-outline-variant/30 rounded-lg overflow-hidden">
             @forelse($recentGames as $game)
                 @php
                     $isWhite = strtolower($game['white']['username']) == strtolower($username);
@@ -111,7 +111,7 @@
                         $score = '0-1';
                     }
                 @endphp
-                <div class="flex items-center p-sm md:p-md border-b border-outline-variant bg-surface hover:bg-surface-variant/30 transition-colors group">
+                <div class="flex items-center p-sm md:p-md border-b border-outline-variant/30 hover:bg-surface-variant/30 transition-colors duration-300 group">
                     <div class="w-1 {{ $colorClass }} h-10 mr-sm rounded-full"></div>
                     <div class="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-sm">
                         <div class="flex items-center gap-md">
@@ -149,7 +149,7 @@
         </div>
         
         <!-- HUD Element -->
-        <div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-md relative overflow-hidden group">
+        <div class="glass-card rounded-lg p-md relative overflow-hidden group border-outline-variant/30 hover:border-primary/30 transition-all duration-300">
             <div class="absolute -right-4 -bottom-4 opacity-10 group-hover:opacity-20 transition-opacity">
                 <span class="material-symbols-outlined text-[120px] text-primary">memory</span>
             </div>
@@ -225,11 +225,11 @@
                 datasets: [{
                     label: 'Elo Rating',
                     data: buildChartData(initElo),
-                    borderColor: '#adc6ff',
-                    backgroundColor: 'rgba(173, 198, 255, 0.1)',
+                    borderColor: '#818cf8',
+                    backgroundColor: 'rgba(129, 140, 248, 0.15)',
                     borderWidth: 2,
-                    pointBackgroundColor: '#131315',
-                    pointBorderColor: '#adc6ff',
+                    pointBackgroundColor: '#07090f',
+                    pointBorderColor: '#818cf8',
                     pointRadius: 3,
                     fill: true,
                     tension: 0.4
@@ -241,11 +241,12 @@
                 plugins: {
                     legend: { display: false },
                     tooltip: {
-                        backgroundColor: '#2a2a2c',
-                        titleColor: '#e5e1e4',
-                        bodyColor: '#c2c6d6',
-                        borderColor: '#424754',
-                        borderWidth: 1
+                        backgroundColor: 'rgba(21, 24, 37, 0.9)',
+                        titleColor: '#f8fafc',
+                        bodyColor: '#94a3b8',
+                        borderColor: 'rgba(129, 140, 248, 0.3)',
+                        borderWidth: 1,
+                        backdropFilter: 'blur(8px)'
                     }
                 },
                 scales: {

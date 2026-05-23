@@ -2,63 +2,66 @@
 @plugin "@tailwindcss/forms";
 
 @theme {
-  --color-error: #ffb4ab;
-  --color-surface-dim: #131315;
-  --color-surface-container-high: #2a2a2c;
-  --color-tertiary-fixed: #ffdadb;
-  --color-surface-container-lowest: #0e0e10;
-  --color-on-primary-container: #00285d;
-  --color-on-secondary-fixed: #002113;
-  --color-on-secondary: #003824;
-  --color-tertiary: #ffb2b7;
-  --color-surface-variant: #353437;
-  --color-inverse-primary: #005ac2;
-  --color-on-primary-fixed: #001a42;
-  --color-on-secondary-container: #00311f;
-  --color-surface-container: #201f22;
-  --color-surface-container-low: #1c1b1d;
-  --color-primary-container: #4d8eff;
-  --color-primary-fixed: #d8e2ff;
-  --color-on-secondary-fixed-variant: #005236;
-  --color-tertiary-container: #ff516a;
-  --color-on-background: #e5e1e4;
-  --color-on-error-container: #ffdad6;
-  --color-inverse-on-surface: #313032;
-  --color-primary: #adc6ff;
-  --color-secondary: #4edea3;
-  --color-on-surface-variant: #c2c6d6;
-  --color-on-tertiary-fixed: #40000d;
-  --color-background: #131315;
-  --color-on-surface: #e5e1e4;
-  --color-surface: #131315;
-  --color-on-tertiary-fixed-variant: #92002a;
-  --color-on-tertiary: #67001b;
-  --color-outline-variant: #424754;
-  --color-on-primary-fixed-variant: #004395;
-  --color-surface-container-highest: #353437;
-  --color-secondary-fixed: #6ffbbe;
-  --color-surface-bright: #39393b;
-  --color-primary-fixed-dim: #adc6ff;
-  --color-on-tertiary-container: #5b0017;
-  --color-tertiary-fixed-dim: #ffb2b7;
-  --color-surface-tint: #adc6ff;
-  --color-secondary-container: #00a572;
-  --color-on-error: #690005;
-  --color-error-container: #93000a;
-  --color-on-primary: #002e6a;
-  --color-outline: #8c909f;
-  --color-secondary-fixed-dim: #4edea3;
-  --color-inverse-surface: #e5e1e4;
+  /* Deep Dark Mode Surface Palette */
+  --color-surface-container-lowest: #030407;
+  --color-surface-dim: #07090f;
+  --color-surface: #07090f;
+  --color-background: #07090f;
+  --color-surface-container-low: #0f121b;
+  --color-surface-container: #151825;
+  --color-surface-container-high: #1c2032;
+  --color-surface-container-highest: #242940;
+  
+  --color-surface-variant: #1e2436;
+  --color-inverse-surface: #e2e8f0;
+  --color-surface-bright: #29304a;
 
-  --spacing-lg: 24px;
-  --spacing-margin: 24px;
+  /* Primary (Electric Indigo / Violet) */
+  --color-primary: #818cf8;
+  --color-primary-fixed: #c7d2fe;
+  --color-primary-fixed-dim: #a5b4fc;
+  --color-primary-container: #4f46e5;
+  --color-on-primary: #ffffff;
+  --color-on-primary-container: #e0e7ff;
+  
+  /* Secondary (Vibrant Teal / Cyan) */
+  --color-secondary: #2dd4bf;
+  --color-secondary-fixed: #99f6e4;
+  --color-secondary-fixed-dim: #5eead4;
+  --color-secondary-container: #0d9488;
+  --color-on-secondary: #ffffff;
+  --color-on-secondary-container: #ccfbf1;
+  
+  /* Tertiary (Soft Gold / Amber for accents) */
+  --color-tertiary: #fbbf24;
+  --color-tertiary-fixed: #fde68a;
+  --color-tertiary-container: #d97706;
+  --color-on-tertiary: #ffffff;
+  
+  /* Text & Outlines */
+  --color-on-surface: #f8fafc;
+  --color-on-background: #f8fafc;
+  --color-on-surface-variant: #94a3b8;
+  --color-outline: #475569;
+  --color-outline-variant: #334155;
+  
+  /* Error / Semantic */
+  --color-error: #f87171;
+  --color-error-container: #991b1b;
+  --color-on-error: #ffffff;
+  --color-on-error-container: #fecaca;
+
+  /* Spacing */
+  --spacing-xs: 4px;
   --spacing-sm: 8px;
   --spacing-md: 16px;
-  --spacing-base: 4px;
-  --spacing-xs: 4px;
-  --spacing-gutter: 16px;
+  --spacing-lg: 24px;
   --spacing-xl: 32px;
+  --spacing-base: 4px;
+  --spacing-gutter: 16px;
+  --spacing-margin: 24px;
 
+  /* Typography */
   --font-body-sm: "Inter", sans-serif;
   --font-headline-md: "Inter", sans-serif;
   --font-body-base: "Inter", sans-serif;
@@ -95,18 +98,57 @@
   --text-body-sm--font-weight: 400;
 }
 
-/* Custom scrollbar for webkit */
+/* Base Body Styles */
+body {
+    background-color: var(--color-background);
+    color: var(--color-on-surface);
+}
+
+/* Premium Utilities */
+.hud-glow {
+    box-shadow: 0 0 50px -15px rgba(129, 140, 248, 0.2);
+}
+
+.glass-panel {
+    background: rgba(21, 24, 37, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-card {
+    background: linear-gradient(145deg, rgba(28, 32, 50, 0.6) 0%, rgba(15, 18, 27, 0.8) 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+}
+
+.glass-card:hover {
+    border: 1px solid rgba(129, 140, 248, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(129, 140, 248, 0.1);
+}
+
+/* Smooth Transitions for interactive elements */
+a, button, .glass-card, input {
+    transition-property: all;
+    transition-duration: 300ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom scrollbar */
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
 }
 ::-webkit-scrollbar-track {
-    background: #131315; 
+    background: var(--color-surface-container-lowest);
 }
 ::-webkit-scrollbar-thumb {
-    background: #353437; 
+    background: var(--color-surface-container-high);
     border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #424754; 
+    background: var(--color-outline-variant);
 }
+

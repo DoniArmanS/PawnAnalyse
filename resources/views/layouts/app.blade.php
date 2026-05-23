@@ -2,7 +2,7 @@
 
 @section('content')
 <!-- SideNavBar -->
-<nav class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 bg-surface-container-low border-r border-outline-variant py-lg gap-md z-40">
+<nav class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 glass-panel border-r border-outline-variant/30 py-lg gap-md z-40">
     <!-- Brand / Header -->
     <div class="px-lg pb-md mb-md border-b border-outline-variant flex flex-col gap-sm">
         <div class="flex items-center gap-sm">
@@ -26,23 +26,23 @@
     
     <!-- Main Nav Links -->
     <div class="flex-1 overflow-y-auto px-sm flex flex-col gap-xs">
-        <a class="bg-primary-container/20 text-primary border-l-4 border-primary px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all duration-200 translate-x-1" href="{{ route('dashboard') }}">
+        <a class="bg-primary/10 text-primary border-l-4 border-primary px-md py-sm flex items-center gap-md font-label-caps text-label-caps transition-all duration-300 shadow-[inset_4px_0_0_0_var(--color-primary)]" href="{{ route('dashboard') }}">
             <span class="material-symbols-outlined">dashboard</span>
             Dashboard
         </a>
-        <a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all duration-200 border-l-4 border-transparent" href="{{ route('analytics') }}">
+        <a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/30 hover:translate-x-1 transition-all duration-300 border-l-4 border-transparent" href="{{ route('analytics') }}">
             <span class="material-symbols-outlined">query_stats</span>
             Analytics
         </a>
-        <a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all duration-200 border-l-4 border-transparent" href="{{ route('progression') }}">
+        <a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/30 hover:translate-x-1 transition-all duration-300 border-l-4 border-transparent" href="{{ route('progression') }}">
             <span class="material-symbols-outlined">trending_up</span>
             Progression
         </a>
-        <a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all duration-200 border-l-4 border-transparent" href="{{ route('analysis') }}">
+        <a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/30 hover:translate-x-1 transition-all duration-300 border-l-4 border-transparent" href="{{ route('analysis') }}">
             <span class="material-symbols-outlined">query_builder</span>
             Analysis
         </a>
-        <a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all duration-200 border-l-4 border-transparent" href="{{ route('intelligence') }}">
+        <a class="text-on-surface-variant hover:text-on-surface px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/30 hover:translate-x-1 transition-all duration-300 border-l-4 border-transparent" href="{{ route('intelligence') }}">
             <span class="material-symbols-outlined">memory</span>
             Deep Intelligence
         </a>
@@ -60,7 +60,7 @@
     <div class="mt-auto px-sm flex flex-col gap-xs pt-md border-t border-outline-variant mx-sm">
         <form action="{{ route('logout') }}" method="POST">
             @csrf
-            <button type="submit" class="w-full text-on-surface-variant hover:text-error px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-surface-variant/50 transition-all duration-200 rounded">
+            <button type="submit" class="w-full text-on-surface-variant hover:text-error px-md py-sm flex items-center gap-md font-label-caps text-label-caps hover:bg-error/10 transition-all duration-300 rounded">
                 <span class="material-symbols-outlined">logout</span>
                 Disconnect
             </button>
@@ -71,7 +71,7 @@
 <!-- Main Content Wrapper -->
 <main class="flex-1 md:ml-64 flex flex-col min-w-0">
     <!-- TopNavBar -->
-    <header class="bg-surface-container-lowest flex justify-between items-center w-full px-lg py-sm h-16 border-b border-outline-variant sticky top-0 z-30">
+    <header class="glass-panel flex justify-between items-center w-full px-lg py-sm h-16 border-b border-outline-variant/30 sticky top-0 z-30">
         <!-- Mobile Brand -->
         <div class="flex items-center gap-sm md:hidden">
             <span class="material-symbols-outlined text-primary text-[28px]" style="font-variation-settings: 'FILL' 1;">chess</span>
